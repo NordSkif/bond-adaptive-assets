@@ -519,73 +519,114 @@ body {
 /* ===== Мобильный вид блока выплат по облигации ===== */
 @media (max-width: 768px) {
 
-  .bond-payments {
-    max-width: 100%;
-    overflow-x: auto;
-  }
+       .bond-payments table{display:block; width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch;}
+      
+      .bond-payments table{min-width:0; max-width:100%;}
+      .bond-payments table > thead,
+      .bond-payments table > tbody{
+        display:block;      
+        width:max(100%, 320px);
+      }
 
-  .bond-payments table {
-    display: table;
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
-  }
+      .bond-payments table thead{display:block; width:100%;}
+      .bond-payments table thead tr{
+        display:grid;
+        grid-template-columns: minmax(120px, 1.25fr) minmax(70px, .9fr) minmax(55px, .8fr) minmax(75px, 1.15fr);
+        align-items:stretch; 
+      }
+      .bond-payments table thead th{
+		  display:none; 
+		  min-width:0;     
+		  font-size: 16px;
+		  font-weight: 400;
+		  color: #647383;
+		}
+	
+      .bond-payments table thead th:nth-child(3),
+      .bond-payments table thead th:nth-child(4),
+      .bond-payments table thead th:nth-child(5),
+      .bond-payments table thead th:nth-child(6){
+        display:flex;
+        align-items:flex-start;
+        min-height:64px; 
+        padding:10px 10px;
+        line-height:1.25;
+        min-width:0; 
+        white-space:normal;
+        overflow-wrap:anywhere;
+      }
+ 
+      .bond-payments table,
+      .bond-payments tbody{display:block; width:100%;}
 
-  .bond-payments thead {
-    display: table-header-group;
-  }
+      .bond-payments tbody tr{
+        display:grid;
+        grid-template-columns: minmax(120px, 1.25fr) minmax(70px, .9fr) minmax(55px, .8fr) minmax(75px, 1.15fr);
+        grid-template-rows:auto auto; 
+        align-items:start;
+      }
+      .bond-payments tbody tr:last-child{border-bottom:0;}
 
-  .bond-payments tbody {
-    display: table-row-group;
-  }
+      .bond-payments tbody td{
+        border:0;
+        font-size: 14px;
+        min-width:0;
+      }
+     
+      .bond-payments thead th:nth-child(1),
+      .bond-payments tbody td:nth-child(1){
+        display:none !important;
+      }
 
-  .bond-payments thead tr,
-  .bond-payments tbody tr {
-    display: table-row !important;
-  }
-
-  .bond-payments thead th,
-  .bond-payments tbody td {
-    display: table-cell;
-    padding: 10px 14px;
-    text-align: left;
-    vertical-align: top;
-  }
-
-  /* на мобилке скрываем № и Вид выплаты и в шапке, и в данных */
-  .bond-payments thead th:nth-child(1),
-  .bond-payments thead th:nth-child(2),
-  .bond-payments tbody td:nth-child(1),
-  .bond-payments tbody td:nth-child(2) {
-    display: none !important;
-  }
-
-  .bond-payments thead th {
-    font-size: 16px;
-    font-weight: 400;
-    color: #647383;
-  }
-
-  .bond-payments tbody td {
-    font-size: 14px;
-  }
-
-  .bond-payments tbody tr {
-    border-bottom: 1px solid #eff2f6;
-  }
-
-  .bond-payments tbody tr:last-child {
-    border-bottom: none;
-  }
-
-  /* подпись типа выплаты под датой */
-  .bond-payments .bp__type {
+      
+      .bond-payments thead th:nth-child(2){
+        display:none !important;
+      }
+   
+      .bond-payments tbody td:nth-child(3){
+        grid-column:1;
+        grid-row:1;
+        font-weight:600;
+        padding-bottom:0;
+      }
+      
+      .bond-payments tbody td:nth-child(2){
+        grid-column:1;
+        grid-row:2;
+        font-size:12px;
+        padding-top:4px;
+      }
+ 
+      .bond-payments tbody td:nth-child(4){
+        grid-column:2;
+        grid-row:1 / span 2;
+        font-weight:600;
+        align-self:start;
+        white-space:nowrap;
+      }
+      .bond-payments tbody td:nth-child(5){
+        grid-column:3;
+        grid-row:1 / span 2;
+        font-weight:600;
+        align-self:start;
+        white-space:nowrap;
+      }
+      .bond-payments tbody td:nth-child(6){
+        grid-column:4;
+        grid-row:1 / span 2;
+        font-weight:600;
+        align-self:start;
+        white-space:nowrap;
+      }
+	  
+	    .bond-payments .bp__type {
     display: block;
     font-size: 14px;
     font-weight: 400;
     color: #647383;
     margin-top: 2px;
   }
+ 
 }
 
 @media (max-width: 378px) {
