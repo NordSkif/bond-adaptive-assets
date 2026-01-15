@@ -8,7 +8,7 @@ body {
 .bond-big-card__footer {
   margin-bottom: 16px;
   justify-content: space-between;
-  align-items: align-items: center;;
+  align-items: align-items: center;
 }
 
 .header-footer-button {
@@ -45,33 +45,33 @@ body {
 
 .footer__copy {
   display: flex;
-  align-items: align-items: center;; /* оставить как было */
+  align-items: align-items: center;
 }
 
 .footer__copy {
-        margin-top: 40px;
-       max-width: auto !important;
+  margin-top: 40px;
+  max-width: auto !important;
 }
-	
+
 .update-info-link {
-    margin-left: 5px;
-	margin-top: 0px;
-    cursor: pointer;
+  margin-left: 5px;
+  margin-top: 0px;
+  cursor: pointer;
 }
 
 .bond-big-card_adaptive_fix {
-    display: flex;
-	flex-direction: row;
-	align-items: align-items: center;;
-	gap: 0px 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: align-items: center;
+  gap: 0px 16px;
 }
 
 .bond-big-card_adaptive_fix_3 {
-    display: flex;
-	flex-direction: row;
-	align-items: align-items: center;;
-	justify-content: space-between;
-	gap: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .footer-nav-menu a {
@@ -83,9 +83,8 @@ body {
 }
 
 .footer {
-  align-items: align-items: center;; /* оставить как было */
+  align-items: align-items: center;
 }
-
 
 /* ==== 1200px ==== */
 @media only screen and (max-width: 1200px) {
@@ -96,7 +95,7 @@ body {
 
   .footer .nav-menu {
     max-width: 100%;
-	margin-left: 0px;
+    margin-left: 0px;
   }
 
   .nav-menu {
@@ -115,11 +114,10 @@ body {
 /* ==== 992px ==== */
 @media only screen and (max-width: 992px) {
 
-    .footer {
-        align-items: flex-start;
-        margin: 0px 7px 7px 7px;
-    }
-
+  .footer {
+    align-items: flex-start;
+    margin: 0px 7px 7px 7px;
+  }
 
   .footer-nav-menu {
     display: flex;
@@ -145,7 +143,7 @@ body {
     margin-bottom: 16px;
     align-items: flex-end;
     margin-top: 0;
-    justify-content: space-between; /* вместо right */
+    justify-content: space-between;
   }
 
   .header-footer-button {
@@ -160,7 +158,6 @@ body {
     flex-direction: column;
   }
 
-  /* сетка карточек */
   .bond-cards {
     display: grid;
     gap: 16px;
@@ -175,8 +172,8 @@ body {
     min-height: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;      /* по вертикали */
-    justify-content: center;      /* по горизонтали */
+    align-items: flex-start;
+    justify-content: center;
   }
 
   .footer-button {
@@ -205,27 +202,25 @@ body {
 /* ==== 768px ==== */
 @media only screen and (max-width: 768px) {
 
+  .bond-big-card_adaptive_fix {
+    flex-direction: column;
+    gap: 0px;
+    align-items: baseline;
+    margin-top: 10px;
+  }
 
-.bond-big-card_adaptive_fix {
-	flex-direction: column;
-	gap: 0px;
-	align-items: baseline;
-	margin-top: 10px;
+  .bond-big-card__btn {
+    margin-bottom: 16px;
+  }
 
-}
-
-.bond-big-card__btn {
-	margin-bottom: 16px;
-}
-
-.bond-big-card_adaptive_fix_3 {
-	margin-top: 10px;
-}
+  .bond-big-card_adaptive_fix_3 {
+    margin-top: 10px;
+  }
 
   .footer__copy {
-  display: inline-flex;
-  align-items: align-items: center;; /* оставить как было */
-}
+    display: inline-flex;
+    align-items: align-items: center;
+  }
 
   .bond-big-card {
     flex-direction: column;
@@ -241,7 +236,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-	align-items: flex-start;
+    align-items: flex-start;
     margin: 10px 0 0 0;
     width: 100%;
     max-width: 100%;
@@ -250,7 +245,7 @@ body {
   .bond-info__item table tbody tr td:first-child {
     flex: none !important;
     font-size: 16px;
-    max-width: none; /* вместо auto */
+    max-width: none;
   }
 
   section.bond span.tooltip {
@@ -261,6 +256,7 @@ body {
   .bond-info__item p {
     padding-right: 15px !important;
   }
+
   .bond-info__item p:nth-of-type(even) {
     padding-right: 0 !important;
   }
@@ -270,34 +266,30 @@ body {
 /* ==== 576px ==== */
 @media only screen and (max-width: 576px) {
 
-   .link-arrow {
+  .link-arrow {
     font-size: 14px;
   }
 
-  /* базовая таблица как флекс-строки */
   .bond-info__item table tbody tr {
     display: flex;
     gap: 20px;
   }
 
-  /* стек строки в колонку */
   .bond-info__item table tbody tr {
     flex-direction: column;
     align-items: stretch;
     gap: 6px;
     padding: 10px 0;
   }
+
   .bond-info__item table tbody td {
     width: 100%;
   }
 
-  /* длинные значения — скролл по строке (оставляем ваш вариант) */
   .bond-info__item .val {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
   }
-  /* альтернатива с переносами:
-     .bond-info__item .val { white-space: normal; overflow-wrap:anywhere; word-break: break-word; } */
 
   .bond-big-card__footer {
     flex-direction: row;
@@ -314,12 +306,10 @@ body {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
-  /* все карточки — по 2 колонки (3 в ряд) */
   .bond-cards > * {
     grid-column: auto / span 2 !important;
   }
 
-  /* две последние — по 3 колонки (2 в ряд на всю ширину) */
   .bond-cards > *:nth-last-child(-n+2) {
     grid-column: auto / span 3 !important;
   }
@@ -365,9 +355,9 @@ body {
     margin-left: 0;
     margin-right: 20px;
   }
-  
+
   .bond-info__item tr td:nth-of-type(even) p {
-  padding-right: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
@@ -381,7 +371,7 @@ body {
 
   .bond-big-card__footer {
     flex-wrap: nowrap;
-	padding-top: 10px;
+    padding-top: 10px;
   }
 
   .bond-big-card__btn {
@@ -389,7 +379,7 @@ body {
   }
 
   .bond-big-card__liquidity p:last-child {
-    font-size: 12px;          /* было font-size: px */
+    font-size: 12px;
     font-weight: 300;
     letter-spacing: -.05em;
     margin-left: 0;
@@ -402,7 +392,7 @@ body {
   .bond-info__item table tbody tr td:first-child {
     flex: auto !important;
     font-size: 16px;
-    max-width: none;           /* вместо auto */
+    max-width: none;
   }
 }
 
@@ -411,59 +401,58 @@ body {
   .bond-info__item table tbody tr td:first-child {
     flex: auto !important;
     font-size: 16px;
-    max-width: none;           
+    max-width: none;
   }
-  
+
   .bond-chart {
     aspect-ratio: auto;
-}
+  }
 
   .site .header__row .site-name {
-     font-size: 14px;
-    }
-
+    font-size: 14px;
+  }
 }
 
 /* ==== 318px ==== */
 @media only screen and (max-width: 318px) {
-    .bond-big-card__btn {
-        font-size: 10px;
-    }
-	.bond-info__item {
+  .bond-big-card__btn {
+    font-size: 10px;
+  }
+
+  .bond-info__item {
     padding: 1.1em;
-	}
-	
-    .bond-card .text p {
-        word-break: break-all;
-    }
-	
-	.footer {
+  }
+
+  .bond-card .text p {
+    word-break: break-all;
+  }
+
+  .footer {
     margin: 0px 10px;
-	}
-	
-	.bond-cards {
-        display: grid;
-        gap: 8px;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-	
-	.bond-cards > *:nth-last-child(-n+2) {
-        grid-column: auto / span 4 !important;
-    }
-	
-	section.bond .val.empty {
-        font-size: 14px;
-	}
+  }
 
-    .bond-card.text-big .text p {
-        font-size: 14px;
-    }
-	
-	.bond-card .text {
-        font-size: 14px;
-    }
+  .bond-cards {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .bond-cards > *:nth-last-child(-n+2) {
+    grid-column: auto / span 4 !important;
+  }
+
+  section.bond .val.empty {
+    font-size: 14px;
+  }
+
+  .bond-card.text-big .text p {
+    font-size: 14px;
+  }
+
+  .bond-card .text {
+    font-size: 14px;
+  }
 }
-
 
 /* ========== Базовые стили для таблицы выплат ========== */
 
@@ -479,7 +468,7 @@ body {
   border-collapse:collapse;
   background:#fff;
   border:1px solid var(--bd);
-  border-radius:16px; /* заметка: с collapse скругление может не проявляться в ряде браузеров */
+  border-radius:16px;
   margin-left:-13px; 
   overflow:scroll;  
 }
@@ -519,124 +508,142 @@ body {
 /* ===== Мобильный вид блока выплат по облигации ===== */
 @media (max-width: 768px) {
 
-       .bond-payments table{display:block; width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch;}
-      
-      .bond-payments table{min-width:0; max-width:100%;}
-      .bond-payments table > thead,
-      .bond-payments table > tbody{
-        display:block;      
-        width:max(100%, 320px);
-      }
+  .bond-payments table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
-      .bond-payments table thead{display:block; width:100%;}
-      .bond-payments table thead tr{
-        display:grid;
-        grid-template-columns: minmax(120px, 1.25fr) minmax(70px, .9fr) minmax(55px, .8fr) minmax(75px, 1.15fr);
-        align-items:stretch; 
-      }
-      .bond-payments table thead th{
-		  display:none; 
-		  min-width:0;     
-		  font-size: 16px;
-		  font-weight: 400;
-		  color: #647383;
-		}
-	
-      .bond-payments table thead th:nth-child(3),
-      .bond-payments table thead th:nth-child(4),
-      .bond-payments table thead th:nth-child(5),
-      .bond-payments table thead th:nth-child(6){
-        display:flex;
-        align-items:flex-start;
-        min-height:64px; 
-        padding:10px 10px;
-        line-height:1.25;
-        min-width:0; 
-        white-space:normal;
-        overflow-wrap:anywhere;
-      }
- 
-      .bond-payments table,
-      .bond-payments tbody{display:block; width:100%;}
+  .bond-payments table {
+    min-width: 0;
+    max-width: 100%;
+  }
 
-      .bond-payments tbody tr{
-        display:grid;
-        grid-template-columns: minmax(120px, 1.25fr) minmax(70px, .9fr) minmax(55px, .8fr) minmax(75px, 1.15fr);
-        grid-template-rows:auto auto; 
-        align-items:start;
-      }
-      .bond-payments tbody tr:last-child{border-bottom:0;}
+  .bond-payments table > thead,
+  .bond-payments table > tbody {
+    display: block;
+    width: max(100%, 320px);
+  }
 
-      .bond-payments tbody td{
-        border:0;
-        font-size: 14px;
-        min-width:0;
-      }
-     
-      .bond-payments thead th:nth-child(1),
-      .bond-payments tbody td:nth-child(1){
-        display:none !important;
-      }
+  .bond-payments table thead {
+    display: block;
+    width: 100%;
+  }
 
-      
-      .bond-payments thead th:nth-child(2){
-        display:none !important;
-      }
-   
-      .bond-payments tbody td:nth-child(3){
-        grid-column:1;
-        grid-row:1;
-        font-weight:600;
-        padding-bottom:0;
-      }
-      
-      .bond-payments tbody td:nth-child(2){
-        grid-column:1;
-        grid-row:2;
-        font-size:12px;
-        padding-top:4px;
-      }
- 
-      .bond-payments tbody td:nth-child(4){
-        grid-column:2;
-        grid-row:1 / span 2;
-        font-weight:600;
-        align-self:start;
-        white-space:nowrap;
-      }
-      .bond-payments tbody td:nth-child(5){
-        grid-column:3;
-        grid-row:1 / span 2;
-        font-weight:600;
-        align-self:start;
-        white-space:nowrap;
-      }
-      .bond-payments tbody td:nth-child(6){
-        grid-column:4;
-        grid-row:1 / span 2;
-        font-weight:600;
-        align-self:start;
-        white-space:nowrap;
-      }
-	  
-	    .bond-payments .bp__type {
+  .bond-payments table thead tr {
+    display: grid;
+    grid-template-columns: minmax(120px, 1.25fr) minmax(70px, .9fr) minmax(55px, .8fr) minmax(75px, 1.15fr);
+    align-items: stretch;
+  }
+
+  .bond-payments table thead th {
+    display: none;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #647383;
+  }
+
+  .bond-payments table thead th:nth-child(3),
+  .bond-payments table thead th:nth-child(4),
+  .bond-payments table thead th:nth-child(5),
+  .bond-payments table thead th:nth-child(6) {
+    display: flex;
+    align-items: flex-start;
+    min-height: 64px;
+    padding: 10px 10px;
+    line-height: 1.25;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .bond-payments table,
+  .bond-payments tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .bond-payments tbody tr {
+    display: grid;
+    grid-template-columns: minmax(120px, 1.25fr) minmax(70px, .9fr) minmax(55px, .8fr) minmax(75px, 1.15fr);
+    grid-template-rows:auto auto;
+    align-items: start;
+  }
+
+  .bond-payments tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .bond-payments tbody td {
+    border: 0;
+    font-size: 14px;
+    min-width: 0;
+  }
+
+  .bond-payments thead th:nth-child(1),
+  .bond-payments tbody td:nth-child(1) {
+    display: none !important;
+  }
+
+  .bond-payments thead th:nth-child(2) {
+    display: none !important;
+  }
+
+  .bond-payments tbody td:nth-child(3) {
+    grid-column: 1;
+    grid-row: 1;
+    font-weight: 600;
+    padding-bottom: 0;
+  }
+
+  .bond-payments tbody td:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 12px;
+    padding-top: 4px;
+  }
+
+  .bond-payments tbody td:nth-child(4) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    font-weight: 600;
+    align-self: start;
+    white-space: nowrap;
+  }
+
+  .bond-payments tbody td:nth-child(5) {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    font-weight: 600;
+    align-self: start;
+    white-space: nowrap;
+  }
+
+  .bond-payments tbody td:nth-child(6) {
+    grid-column: 4;
+    grid-row: 1 / span 2;
+    font-weight: 600;
+    align-self: start;
+    white-space: nowrap;
+  }
+
+  .bond-payments .bp__type {
     display: block;
     font-size: 14px;
     font-weight: 400;
     color: #647383;
     margin-top: 2px;
   }
- 
 }
 
 @media (max-width: 378px) {
-
   .bond-payments thead th {
     font-size: 14px;
     font-weight: 400;
     color: #647383;
   }
-
 }
 
 .bond-table.bond-offers table td,
@@ -648,9 +655,6 @@ body {
 }
 
 /* СТРАНИЦА ЭМИТЕНТА */
-
-
-
 
 .emitent {
   grid-gap: 1.1428571429rem;
@@ -702,26 +706,27 @@ body {
 }
 
 .issuer-history table {
-    margin-left: -5px;
+  margin-left: -5px;
 }
 
 .bond-table a[data-expand] {
-    margin-left: -5px;
+  margin-left: -5px;
 }
 
 .bond-table.issuer-history .history-date {
-    min-width: 75px;
-	word-break: auto-phrase;
-}
-.bond-table.issuer-history .history-bond {
-    width: 350px;
-    word-break: auto-phrase;
+  min-width: 75px;
+  word-break: auto-phrase;
 }
 
-    .bond-table table thead th {
-        font-size: 16px;
-        word-break: keep-all !important;
-    }
+.bond-table.issuer-history .history-bond {
+  width: 350px;
+  word-break: auto-phrase;
+}
+
+.bond-table table thead th {
+  font-size: 16px;
+  word-break: keep-all !important;
+}
 
 /* ==== 1200px ==== */
 @media only screen and (max-width: 1200px) {
@@ -734,139 +739,142 @@ body {
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
 }
-
 }
-
 
 /* ==== 1152px ==== */
 @media only screen and (max-width: 1152px) {
 
-
-.issuer-tables .screener__table-wrapper, .portfolio-tables .screener__table-wrapper {
+  .issuer-tables .screener__table-wrapper, .portfolio-tables .screener__table-wrapper {
     padding-top: 50px;
     overflow-x: scroll;
     max-width: 100%;
-}
+  }
 
-    .emitent {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 равные колонки */
-        width: 100%;
-    }
+  .emitent {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 равные колонки */
+    width: 100%;
+  }
 
-	.issuer .emitent {
-	  display: grid;
-	  grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 равные колонки */
-      width: 100%
-}
+  .issuer .emitent {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 равные колонки */
+    width: 100%
+  }
 
-  .issuer .emitent > .bond-card{ 
+  .issuer .emitent > .bond-card {
     grid-column: auto / span 1 !important;
   }
-  
+
   .bond-table table thead th {
-        text-align: left;
+    text-align: left;
   }
 }
 
 /* ==== 992px ==== */
 @media only screen and (max-width: 992px) {
-
-    .emitent {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 равные колонки */
-        width: 100%;
-    }
-
-	.issuer .emitent {
-	  display: grid;
-	  grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 равные колонки */
-      width: 100%
-}
-
-  .issuer .emitent > .bond-card{ 
+  .emitent {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 равные колонки */
+    width: 100%;
+  }
+  .issuer .emitent {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 равные колонки */
+    width: 100%
+  }
+  .issuer .emitent > .bond-card {
     grid-column: auto / span 1 !important;
   }
-  
-	.issuer .bond-big-card__img {
-		width: 180px;
-		height: 180px;
-	}
-	
+  .issuer .bond-big-card__img {
+    width: 180px;
+    height: 180px;
+  }
   .issuer-desc {
     width: calc(100% - 200px);
-}
+  }
 }
 
 /* ==== 768px ==== */
 @media only screen and (max-width: 768px) {
-	
-	.bond-table.issuer-ratings td, .bond-table.issuer-ratings th {
+  .bond-table.issuer-ratings td, .bond-table.issuer-ratings th {
     min-width: 100px;
-}
-
-.bond-table table tbody tr td  {
+  }
+  .bond-table table tbody tr td {
     font-weight: 500;
-}
-
-
+  }
 }
 
 /* ==== 576px ==== */
 @media only screen and (max-width: 576px) {
-	
-    .emitent {
-		display: grid !important;
-		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-		gap: 12px;
-		grid-auto-flow: row dense;
-		
-		grid-column: auto / span 1 !important; /* или просто: grid-column: auto !important; */
-		grid-row: auto !important;
+  .emitent {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px;
+    grid-auto-flow: row dense;
 
-		/* на случай наследованных «растяжек» */
-		width: auto !important;
-		max-width: 100% !important;
-		min-width: 0 !important;
-		flex: initial !important;
-    }
+    grid-column: auto / span 1 !important; /* или просто: grid-column: auto !important; */
+    grid-row: auto !important;
+    /* на случай наследованных «растяжек» */
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: initial !important;
+  }
 
-	.issuer-history table {
+  .issuer-history table {
     margin-left: 0px;
-	margin-top: 16px;
-}
+    margin-top: 16px;
+  }
 
-.bond h2, .bond-table h2 {
+  .bond h2, .bond-table h2 {
     margin-bottom: 18px;
-}
+  }
 
-  .issuer .emitent > .bond-card{ 
+  .issuer .emitent > .bond-card {
     grid-column: auto / span 2 !important;
   }
-  
+
   .bond-big-card__header,
-    .issuer .bond-big-card__header{
-      display:grid;                 /* grid for precise placement */
-      grid-template-columns:85px 1fr;
-      grid-auto-rows:min-content;
-      align-items:center;
-      gap:12px;
-      margin-bottom:16px;
-    }
-    .bond-big-card__img{
-      width:56px; height:56px; border-radius:12px; /* compact square logo */
-      grid-column:1; grid-row:1;
-    }
-    .issuer-desc{ display:contents; width:auto; }
-    .bond-big-card__header h1{ grid-column:2; grid-row:1; margin:0; padding-left: 0px; }
-    .issuer-desc p{ grid-column:1 / -1; }
-  
-	.issuer .bond-big-card__img {
-		width: 80px;
-		height: 80px;
-	}
-	
-	.bond-table.issuer-history tbody[data-tabs-target="events"]
+  .issuer .bond-big-card__header {
+    display: grid; /* grid for precise placement */
+    grid-template-columns:85px 1fr;
+    grid-auto-rows: min-content;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .bond-big-card__img {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px; /* compact square logo */
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .issuer-desc {
+    display: contents;
+    width: auto;
+  }
+
+  .bond-big-card__header h1 {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    padding-left: 0px;
+  }
+
+  .issuer-desc p {
+    grid-column: 1 / -1;
+  }
+
+  .issuer .bond-big-card__img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .bond-table.issuer-history tbody[data-tabs-target="events"]
   tr:nth-child(n+4 of [data-on-tab="past"]:not([style*="display: none"])) {
     display: none !important;
   }
@@ -875,90 +883,85 @@ body {
   tr:nth-child(n+4 of [data-on-tab="future"]:not([style*="display: none"])) {
     display: none !important;
   }
-  
+
   .init {
     margin-bottom: 25px;
-}
+  }
 
-
-
-
-
-.issuer-tables .screener__table-wrapper, .portfolio-tables .screener__table-wrapper {
-	padding-top: 65px;
-			overflow-x: unset;
-			margin-top: -30px;
+  .issuer-tables .screener__table-wrapper, .portfolio-tables .screener__table-wrapper {
+    padding-top: 65px;
+    overflow-x: unset;
+    margin-top: -30px;
     width: 100%;
-	background: none;
-	border: none;
-	overflow: hidden;
-}
+    background: none;
+    border: none;
+    overflow: hidden;
+  }
 
-.common-pager .pager {
+  .common-pager .pager {
     display: block;
-	margin: 0px auto;
-}
+    margin: 0px auto;
+  }
 
-.table-body tr:hover, .table-body tr:hover td {
+  .table-body tr:hover, .table-body tr:hover td {
     background-color: #fff;
-}
+  }
 
-#screener_results_wrap {
+  #screener_results_wrap {
     margin-bottom: -17px;
     padding-bottom: 0;
-}
+  }
 
-#screener_results_wrap h2 {
+  #screener_results_wrap h2 {
     margin-left: 5px;
-	margin-bottom: -25px;
-	position: initial;
+    margin-bottom: -25px;
+    position: initial;
+  }
 }
-
-
-}
-
 
 /* ==== 450px ==== */
 @media only screen and (max-width: 450px) {
-.bond-table.issuer-history .history-event {
+  .bond-table.issuer-history .history-event {
     width: 100%;
     min-width: 120px;
-}
+  }
 
-    .bond-big-card__header h1{ grid-column:2; grid-row:1; margin:0; padding-left: 0px; }
-  
-	.issuer .bond-big-card__img {
-		width: 64px;
-		height: 64px;
-	}
+  .bond-big-card__header h1 {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    padding-left: 0px;
+  }
+
+  .issuer .bond-big-card__img {
+    width: 64px;
+    height: 64px;
+  }
 }
 
 /* ==== 378px ==== */
 @media only screen and (max-width: 378px) {
-    .issuer-desc p {
-        font-size: 14px;
-    }
-	
-.issuer .bond-card .text ,	.bond-card .text p {
-         font-size: 14px;
-    }
-	
-	
+  .issuer-desc p {
+    font-size: 14px;
+  }
+
+  .issuer .bond-card .text, .bond-card .text p {
+    font-size: 14px;
+  }
 }
 
 /* ==== 280px ==== */
-@media only screen and (max-width: 280px)
- {
-    .issuer .emitent > .bond-card {
-        grid-column: auto / span 4 !important;
-    }
-	
-    .footer__copy {
-        display: block;
-        align-items: align-items: center;;
-    }
-	
-	.update-info-link {
+@media only screen and (max-width: 280px) {
+  .issuer .emitent > .bond-card {
+    grid-column: auto / span 4 !important;
+  }
+
+  .footer__copy {
+    display: block;
+    align-items: align-items: center;
+  }
+
+  .update-info-link {
     margin-left: 0px;
     margin-top: 7px;
     cursor: pointer;
@@ -967,35 +970,32 @@ body {
 
 /* ⇩ АДАПТИВ ДЛЯ СТРАНИЦЫ ЭМИТЕНТА ⇩ */
 
-
 @media only screen and (max-width: 1600px) {
-   .emitent .bond-card .text p {
-        font-size: 20px;
-    }
+  .emitent .bond-card .text p {
+    font-size: 20px;
+  }
 }
 
 /* === Таблица с тултипами === */
 .with-tooltips .table td {
-  font-size: 16px;   /* базовый размер шрифта в ячейках таблицы с подсказками */
-  font-weight: 700;  /* делаем текст жирным, важно понимать, не перебивает ли это общие таблицы */
+  font-size: 16px; /* базовый размер шрифта в ячейках таблицы с подсказками */
+  font-weight: 700; /* делаем текст жирным, важно понимать, не перебивает ли это общие таблицы */
 }
 
 /* === Описание эмитента в шапке карточки === */
 .issuer-desc p {
-  padding-bottom: 1em;  /* отступ между абзацами */
-  font-size: 18px;      /* комфортный размер текста для десктопа */
+  padding-bottom: 1em; /* отступ между абзацами */
+  font-size: 18px; /* комфортный размер текста для десктопа */
 }
 
 /* === Текст внутри bond-card (общий случай, десктоп) === */
 .bond-card .text {
-  font-size: 20px;      /* крупный текст для основных описаний облигации */
+  font-size: 20px; /* крупный текст для основных описаний облигации */
 }
 
 .screener__table-wrapper {
   margin-bottom: 16px;
 }
-
-
 
 /* ==================================================================
    Адаптация шрифтов и верстки по брейкпоинтам
@@ -1003,46 +1003,39 @@ body {
 
 /* <= 1200px: немного уменьшаем текст в карточках */
 @media (max-width: 1200px) {
- 
-    .emitent .bond-card .text p {
-        font-size: 18px;
-    }
- 
-
+  .emitent .bond-card .text p {
+    font-size: 18px;
+  }
 
   .bond-card h3 {
-    font-size: 16px;   /* заголовок карточки поменьше, чтобы не раздувался на узких экранах */
+    font-size: 16px; /* заголовок карточки поменьше, чтобы не раздувался на узких экранах */
   }
-  
-  .screener__table-wrapper .table td {
-     text-align: left;
-    }
-}
 
+  .screener__table-wrapper .table td {
+    text-align: left;
+  }
+}
 
 /* <= 450px: поджимаем текст описания эмитента */
 @media only screen and (max-width: 450px) {
-
   .issuer-desc p {
     padding-bottom: 1em;
     font-size: 16px;   /* мелкие экраны: описание поменьше, чтобы не ломать верстку */
   }
 }
 
-
 /* <= 378px: еще сильнее уменьшаем текст в bond-card и ограничиваем ширину ссылки в названии */
 @media only screen and (max-width: 378px) {
-
   .bond-card .text,
   .issuer .bond-card .text,
   .bond-card .text p {
-    font-size: 16px;   /* компактный текст для совсем маленьких экранов */
+    font-size: 16px; /* компактный текст для совсем маленьких экранов */
   }
-  
-    .emitent .bond-card .text p {
-        font-size: 16px;
-    }
-	
+
+  .emitent .bond-card .text p {
+    font-size: 16px;
+  }
+
   /* Ссылка в названии облигации в таблице: переносим текст в столбик и ограничиваем ширину */
   .screener__table-wrapper-2 #screenerTable tbody td.title a {
     display: flex;
@@ -1050,54 +1043,49 @@ body {
     gap: 2px;
     max-width: calc(100% - 100px); /* резервируем примерно 100px справа под иконки/бейджи */
   }
-  .bond-table table tbody tr td {
-        font-size: 14px;
-    }
-}
 
+  .bond-table table tbody tr td {
+    font-size: 14px;
+  }
+}
 
 /* <= 330px: еще чуть-чуть "отгрызаем" ширину под иконки справа */
 @media only screen and (max-width: 330px) {
-
   .screener__table-wrapper-2 #screenerTable tbody td.title a {
     max-width: calc(100% - 130px); /* для самых узких экранов оставляем больше места справа */
   }
 }
 
-.params-inline{
-   display: none;
-  }
+.params-inline {
+  display: none;
+}
 
 @media (max-width: 768px) {
 
+  .screener__table-wrapper {
+    background: none;
+    border: none;
+  }
 
-.screener__table-wrapper {
-
-    background: none; 
-    border: none; 
-
-}
-
-.screener__table-wrapper-2 {
-padding-bottom: 0px !important;
-
-}
+  .screener__table-wrapper-2 {
+    padding-bottom: 0px !important;
+  }
 
   /* === Заголовки таблицы в блоке bond-table === */
   .bond-table table thead th {
     font-size: 16px; /* чуть покрупнее, чтобы на мобиле не превращалось в "мелочь" */
   }
 
-    .issuer-tables .screener__table-wrapper, .portfolio-tables .screener__table-wrapper {
-        padding-bottom: 90px;
-    }
+  .issuer-tables .screener__table-wrapper, .portfolio-tables .screener__table-wrapper {
+    padding-bottom: 90px;
+  }
 
   /* Первый логотип/иконка в названии облигации — прячем на мобиле */
   .screener__table-wrapper-2 #screenerTable tbody td.title img:first-child {
     height: 24px;
     width: 24px;
     border-radius: 6px;
-    display: none;   /* иконка не помещается — убираем, размеры остаются "на будущее" */
+    display: none; /* иконка не помещается — убираем, размеры остаются "на будущее" */
   }
 
   /* Все .tooltip на мобиле показываем как inline-flex
@@ -1112,19 +1100,18 @@ padding-bottom: 0px !important;
   }
 
   /* === Переключаем screener в карточный режим таблицы === */
-
   .screener__table-wrapper-2 #screenerTable {
-    min-width: 0;               /* таблица не раздвигает контейнер */
+    min-width: 0; /* таблица не раздвигает контейнер */
     width: 100%;
-    border-collapse: separate;  /* нужно для скруглений и теней */
+    border-collapse: separate; /* нужно для скруглений и теней */
   }
 
   .screener__table-wrapper-2 #screenerTable thead {
-    display: none;              /* классический mobile-подход: заголовок прячем, лейблы рисуем через ::before */
+    display: none; /* классический mobile-подход: заголовок прячем, лейблы рисуем через ::before */
   }
 
   .screener__table-wrapper-2 #screenerTable tbody {
-    display: block;             /* каждая строка — отдельная карточка */
+    display: block; /* каждая строка — отдельная карточка */
   }
 
   /* Карточка-строка как CSS Grid */
@@ -1135,17 +1122,16 @@ padding-bottom: 0px !important;
       25%               /* 1: Цена */
       25%                 /* 2: YTM */
       25%                 /* 3: Срок, лет */
-      minmax(20% , 1fr);  /* 4: Дюрация */
-
+      minmax(20%, 1fr); /* 4: Дюрация */
     background: #fff;
     border: 1px solid #e6f1e6;
     border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
     padding: 12px;
     margin: 10px 0;
-    gap: 8px 4px;                /* [ряды] [колонки] */
-    overflow-x: auto;             /* горизонтальный скролл, если не помещается */
-    position: relative;           /* якорь для .icons в заголовке */
+    gap: 8px 4px; /* [ряды] [колонки] */
+    overflow-x: auto; /* горизонтальный скролл, если не помещается */
+    position: relative; /* якорь для .icons в заголовке */
   }
 
   .screener__table-wrapper-2 #screenerTable tbody tr + tr {
@@ -1153,17 +1139,16 @@ padding-bottom: 0px !important;
   }
 
   /* === Заголовок облигации === */
-
   .screener__table-wrapper-2 #screenerTable tbody td.title {
-    grid-column: 1 / span 4;      /* заголовок занимает первые 4 колонки сетки */
+    grid-column: 1 / span 4; /* заголовок занимает первые 4 колонки сетки */
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 0 12px 6px 0;
     margin: 0;
     border-bottom: none;
-    position: relative;           /* для абсолютного позиционирования .icons */
-	width: auto;
+    position: relative; /* для абсолютного позиционирования .icons */
+    width: auto;
   }
 
   /* Оставшиеся иконки/логотипы внутри заголовка */
@@ -1175,7 +1160,7 @@ padding-bottom: 0px !important;
 
   .screener__table-wrapper-2 #screenerTable tbody td.title a {
     display: flex;
-    flex-direction: column;       /* эмитент + полное название в столбик */
+    flex-direction: column; /* эмитент + полное название в столбик */
     gap: 2px;
   }
 
@@ -1190,17 +1175,17 @@ padding-bottom: 0px !important;
 
   /* Полное название облигации */
   .screener__table-wrapper-2 #screenerTable tbody td.title a .full {
-  display: none;          
+    display: none;
   }
 
- .screener__table-wrapper-2 #screenerTable td.title a span.short {
+  .screener__table-wrapper-2 #screenerTable td.title a span.short {
     display: block !important;
-	font-size: 16px;
+    font-size: 16px;
     font-weight: 800;
     line-height: 1.2;
-    max-width: 210px; 
+    max-width: 210px;
   }
-  
+
   /* История облигаций эмитента — минимальная ширина карточки */
   .bond-table.issuer-history .history-bond {
     min-width: 150px;
@@ -1217,7 +1202,6 @@ padding-bottom: 0px !important;
   }
 
   /* === Метрики (числа) — колонки в GRID === */
-
   .screener__table-wrapper-2 #screenerTable tbody td {
     border: 0;
     font-size: 15px;
@@ -1228,41 +1212,77 @@ padding-bottom: 0px !important;
   }
 
   /* Лейблы метрик из ::before (подменяем заголовки колонок) */
-  
   .screener__table-wrapper-2 #screenerTable tbody td::before {
     display: block;
     font-weight: 400;
     color: #8794a1;
     padding-bottom: 10px;
     margin-bottom: 2px;
-	font-size: 12px;
+    font-size: 12px;
   }
 
-  .screener__table-wrapper-2 #screenerTable tbody td.nominalPercentage { grid-column: 1; } /* Цена */
-  .screener__table-wrapper-2 #screenerTable tbody td.ytm               { grid-column: 2; } /* YTM  */
-  .screener__table-wrapper-2 #screenerTable tbody td.term              { grid-column: 3; } /* Срок */
-  .screener__table-wrapper-2 #screenerTable tbody td.duration          { grid-column: 4; background: unset;} /* Дюрация */
+  .screener__table-wrapper-2 #screenerTable tbody td.nominalPercentage {
+    grid-column: 1;
+  }
 
-/* лишние колонки можно просто выкинуть или на всякий случай выключить */
-.screener__table-wrapper-2 #screenerTable tbody td.mSpread,
-.screener__table-wrapper-2 #screenerTable tbody td.gSpread,
-.screener__table-wrapper-2 #screenerTable tbody td.liquidity {
-  display: none !important;
-}
- 
+  /* Цена */
+  .screener__table-wrapper-2 #screenerTable tbody td.ytm {
+    grid-column: 2;
+  }
+
+  /* YTM  */
+  .screener__table-wrapper-2 #screenerTable tbody td.term {
+    grid-column: 3;
+  }
+
+  /* Срок */
+  .screener__table-wrapper-2 #screenerTable tbody td.duration {
+    grid-column: 4;
+    background: unset;
+  }
+
+  /* Дюрация */
+  /* лишние колонки можно просто выкинуть или на всякий случай выключить */
+  .screener__table-wrapper-2 #screenerTable tbody td.mSpread,
+  .screener__table-wrapper-2 #screenerTable tbody td.gSpread,
+  .screener__table-wrapper-2 #screenerTable tbody td.liquidity {
+    display: none !important;
+  }
+
   /* Подписи полей */
-  .screener__table-wrapper-2 #screenerTable tbody td.nominalPercentage::before { content: "Цена, %"; }
-  .screener__table-wrapper-2 #screenerTable tbody td.ytm::before               { content: "YTM, %"; }
-  .screener__table-wrapper-2 #screenerTable tbody td.mSpread::before           { content: "М-Спред"; }
-  .screener__table-wrapper-2 #screenerTable tbody td.gSpread::before           { content: "G-Спред"; }
-  .screener__table-wrapper-2 #screenerTable tbody td.term::before              { content: "Срок / Дюрация"; }
-  .screener__table-wrapper-2 #screenerTable tbody td.duration::before          { content: ""; }
-  .screener__table-wrapper-2 #screenerTable tbody td.liquidity::before         { content: "Ликвидность"; }
+  .screener__table-wrapper-2 #screenerTable tbody td.nominalPercentage::before {
+    content: "Цена, %";
+  }
+
+  .screener__table-wrapper-2 #screenerTable tbody td.ytm::before {
+    content: "YTM, %";
+  }
+
+  .screener__table-wrapper-2 #screenerTable tbody td.mSpread::before {
+    content: "М-Спред";
+  }
+
+  .screener__table-wrapper-2 #screenerTable tbody td.gSpread::before {
+    content: "G-Спред";
+  }
+
+  .screener__table-wrapper-2 #screenerTable tbody td.term::before {
+    content: "Срок / Дюрация";
+  }
+
+  .screener__table-wrapper-2 #screenerTable tbody td.duration::before {
+    content: "";
+  }
+
+  .screener__table-wrapper-2 #screenerTable tbody td.liquidity::before {
+    content: "Ликвидность";
+  }
 
   /* === Параметры (иконки) — переносим в title через .params-inline === */
-td.duration.is-hidden-duration {
-  display: none;
-}
+  td.duration.is-hidden-duration {
+    display: none;
+  }
+
   /* Сам столбец params прячем на мобилке */
   .screener__table-wrapper-2 #screenerTable tbody td.params {
     display: none;
@@ -1287,22 +1307,21 @@ td.duration.is-hidden-duration {
   }
 
   /* === Кнопка-кошелёк (action-tooltip) в заголовке === */
-
   /* Общие стили "зелёной кнопки" — и для обычного mobile, и для .is-mobile */
   .screener__table-wrapper-2 #screenerTable tbody td.title .icons .tooltip.action-tooltip,
   .screener__table-wrapper.is-mobile .screener__table-wrapper-2 #screenerTable tbody td.title .icons .tooltip.action-tooltip {
-    display: flex;              /* всегда видимая кнопка, не зависит от :hover */
+    display: flex; /* всегда видимая кнопка, не зависит от :hover */
     align-items: center;
     justify-content: center;
     width: 32px;
     height: 32px;
     min-width: 32px !important;
     border-radius: 12px;
-    background: #1db954;       /* временный зелёный под "кошелёк" */
+    background: #1db954; /* временный зелёный под "кошелёк" */
     color: #fff;
     border: none;
-    margin-bottom: -35px;      /* приподнимаем кнопку относительно строки */
-    opacity: 1;                /* перекрываем site.css, где мог быть 0 или зависимость от hover */
+    margin-bottom: -35px; /* приподнимаем кнопку относительно строки */
+    opacity: 1; /* перекрываем site.css, где мог быть 0 или зависимость от hover */
   }
 
   /* Текстовый тултип рядом с кнопкой на мобилке не показываем */
@@ -1316,24 +1335,25 @@ td.duration.is-hidden-duration {
    Дублируем mobile-правила из @media, чтобы JS мог принудительно включать
    мобильный вид даже в широком iframe.
 */
+
 .screener__table-wrapper.is-mobile .screener__table-wrapper-2 #screenerTable {
-  min-width: 0;              /* таблица не раздвигает контейнер по ширине */
+  min-width: 0; /* таблица не раздвигает контейнер по ширине */
   width: 100%;
   border-collapse: separate;
-  display: block;            /* превращаем таблицу в блочный контейнер для карточек-строк */
+  display: block; /* превращаем таблицу в блочный контейнер для карточек-строк */
 }
 
 .screener__table-wrapper.is-mobile .screener__table-wrapper-2 #screenerTable thead {
-  display: none;             /* заголовок в карточном виде не нужен */
+  display: none; /* заголовок в карточном виде не нужен */
 }
 
 .screener__table-wrapper.is-mobile .screener__table-wrapper-2 #screenerTable tbody {
-  display: block;            /* строки ведут себя как независимые карточки */
+  display: block; /* строки ведут себя как независимые карточки */
 }
 
 /* Заголовок облигации */
 .screener__table-wrapper.is-mobile .screener__table-wrapper-2 #screenerTable tbody td.title {
-  grid-column: 1 / span 1;       /* только первая колонка сетки */
+  grid-column: 1 / span 1; /* только первая колонка сетки */
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1345,7 +1365,7 @@ td.duration.is-hidden-duration {
 
 /* Ячейка с иконками / параметрами */
 .screener__table-wrapper.is-mobile .screener__table-wrapper-2 #screenerTable tbody td.params {
-  grid-column: 4 / span 2;       /* ВАЖНО: может пересекаться с gSpread/term, держим в уме */
+  grid-column: 4 / span 2; /* ВАЖНО: может пересекаться с gSpread/term, держим в уме */
   align-self: start;
   display: flex;
   flex-wrap: nowrap;
@@ -1353,7 +1373,7 @@ td.duration.is-hidden-duration {
   align-items: center;
   padding: 0;
   position: relative;
-  z-index: 5;                    /* иконки поверх остального контента карточки */
+  z-index: 5; /* иконки поверх остального контента карточки */
 }
 
 /* Метрики по колонкам GRID — каждая в своей ячейке */
@@ -1468,79 +1488,77 @@ td.duration.is-hidden-duration {
    ================================================================== */
 
 .screener__block_adaptive {
-    background: #fff;
-    border: 1px solid #3ab54a33;
-    border-radius: 24px;
-    margin-bottom: 20px;
-    padding: 16px;
+  background: #fff;
+  border: 1px solid #3ab54a33;
+  border-radius: 24px;
+  margin-bottom: 20px;
+  padding: 16px;
 }
 
 .search_adaptive {
-    margin-bottom: 24px;
-}	
+  margin-bottom: 24px;
+}
 
-.screener__table-wrapper_adaptive  {
-    margin-bottom: 35px;
-    max-width: 100%;
-    overflow: scroll;
+.screener__table-wrapper_adaptive {
+  margin-bottom: 35px;
+  max-width: 100%;
+  overflow: scroll;
 }
 
 /* ==== 576 ==== */
 
 @media only screen and (max-width: 768px) {
-	
-.custom-select  {
-   width: calc(50% - 8px);
-}
-    .screener__filters-row {
-        gap: 16px; 
-    }
-	
-	.screener__table-wrapper {
-  margin-bottom: 0px;
-}
+
+  .custom-select {
+    width: calc(50% - 8px);
+  }
+
+  .screener__filters-row {
+    gap: 16px;
+  }
+
+  .screener__table-wrapper {
+    margin-bottom: 0px;
+  }
 }
 
 /* ==== 576 ==== */
 
 @media only screen and (max-width: 576px) {
-	
-.screener__filters-row {
+
+  .screener__filters-row {
     gap: 16px;
     margin-bottom: 24px;
-}	
-	
-.custom-select  {
-    width: 100%;
-}
+  }
 
-.init {
-        margin-bottom: 0px;
-    }
-	
-.screener__block {
+  .custom-select {
+    width: 100%;
+  }
+
+  .init {
+    margin-bottom: 0px;
+  }
+
+  .screener__block {
     background: #fff;
     border: 1px solid #3ab54a33;
     border-radius: 24px;
     margin-bottom: 20px;
     padding: 16px;
+  }
 }
-
-}
-
 
 .screener__filters-row {
-    display: flex;
-    align-items: unset;
-    justify-content: space-between;
+  display: flex;
+  align-items: unset;
+  justify-content: space-between;
 }
+
 @media (max-width: 1611px) {
-.screener__filter-btns {
+  .screener__filter-btns {
     flex: 0 0 0px;
+  }
 }
-}
-
-
 
 /* Мобильный режим: < 768px */
 @media (max-width: 767px) {
@@ -1550,12 +1568,12 @@ td.duration.is-hidden-duration {
     position: relative;
     z-index: 1;
   }
-  
+
   .issuer .emitent {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        width: 100%;
-    }
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100%;
+  }
 
   /* режим "показать все" — превращаем в поп-ап */
   .screener__filters-row.view-all {
@@ -1566,25 +1584,24 @@ td.duration.is-hidden-duration {
     background: rgba(11, 16, 25, 0.6); /* затемнённый фон */
     display: flex;
     align-items: unset;
-	gap: 0px;
+    gap: 0px;
     justify-content: center;
     overflow-y: auto;
-	margin-bottom: 0px;
+    margin-bottom: 0px;
   }
-  
+
   .screener__filters-row.view-all .screener__filter-btns {
     max-width: 420px;
     width: 100%;
-	gap: 0px;
-	margin-top: 25px;
+    gap: 0px;
+    margin-top: 25px;
   }
 
   .screener__filters-row.view-all .screener__filter-btns .screener__done, .screener__reset {
     width: 100%;
-}
+  }
 
-  /* внутренняя карточка поп-апа:
-     filters-header + filters-body + filters-footer живут в одном столбце */
+  /* внутренняя карточка поп-апа: filters-header + filters-body + filters-footer живут в одном столбце */
   .screener__filters-row.view-all .filters-header,
   .screener__filters-row.view-all .filters-body,
   .screener__filters-row.view-all .filters-footer {
@@ -1598,24 +1615,24 @@ td.duration.is-hidden-duration {
     border-radius: 20px 20px 0 0;
     padding: 16px 20px 8px;
     margin: 0 auto;
-	position: relative;
+    position: relative;
   }
 
   .screener__filters-row.view-all .filters-body {
     background: #fff;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
     padding: 40px 20px 12px;
-	margin-right: -20px;
+    margin-right: -20px;
     margin: 0 auto;
     max-height: calc(100vh - 180px);
     overflow-y: auto;
-	display: block;
-	border-radius: 0px 0px 20px 20px
+    display: block;
+    border-radius: 0px 0px 20px 20px
   }
 
   .screener__filters-row.view-all .filters-footer {
     background: #fff;
-    
+
     padding: 8px 20px 16px;
     margin: 0 auto;
   }
@@ -1635,9 +1652,9 @@ td.duration.is-hidden-duration {
     background: #eff2f6 url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 4l8 8M12 4l-8 8' stroke='%23121213' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") center/16px 16px no-repeat;
     cursor: pointer;
     flex-shrink: 0;
-	position: absolute;
-	right: 20px;
-	top: 20px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
   }
 
   .screener__filters-row.view-all .custom-select,
@@ -1647,29 +1664,25 @@ td.duration.is-hidden-duration {
   }
 }
 
-
 .screener__table-wrapper-3 {
-   overflow-x: scroll;
-   overflow-y: clip;
-    max-width: 100%;
-	margin-bottom: 30px;
-  }
-  
-  
- .screener__table-wrapper-3  .table tbody td.title {
-    position: unset;
-    left: 0;
-    z-index: 10;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  max-width: 100%;
+  margin-bottom: 30px;
 }
-  
-   .screener__table-wrapper-3 .table thead th.title {
-    position: unset;
-    left: 0;
-    z-index: 10;
+
+.screener__table-wrapper-3 .table tbody td.title {
+  position: unset;
+  left: 0;
+  z-index: 10;
 }
-  
-  
-  
+
+.screener__table-wrapper-3 .table thead th.title {
+  position: unset;
+  left: 0;
+  z-index: 10;
+}
+
 /* по умолчанию шапку фильтров вообще не показываем */
 .filters-header {
   display: none;
@@ -1693,51 +1706,8 @@ td.duration.is-hidden-duration {
 }
 
 @media (max-width: 767px) {
-
-
-	.screener__btns h2 {
+  .screener__btns h2 {
     bottom: -60px;
-}
-
-  /* сам попап */
-  .screener__toggle-columns {
-    position: fixed;
-    inset: 50% auto auto 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% - 32px);
-    max-width: 380px;
-    max-height: calc(100vh - 64px);
-    padding: 16px 16px 20px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-
-    /* по умолчанию закрыт */
-    display: none;
-   
-  }
-
-  /* при .active показываем */
-  .screener__toggle-columns.active {
-    display: block;
-  }
-
-  /* фон-затемнение */
-
-
-  /* шапка попапа */
-  .screener__toggle-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
-  .screener__toggle-header h3 {
-    font-size: 18px;
-    line-height: 1.2;
   }
 
   #set_default_settings {
@@ -1753,7 +1723,7 @@ td.duration.is-hidden-duration {
   .screener__toggle-btns {
     max-height: calc(100vh - 140px);
     overflow-y: auto;
-    margin-right: -8px;    /* небольшой антискролл */
+    margin-right: -8px; /* небольшой антискролл */
     padding-right: 8px;
   }
 
@@ -1783,12 +1753,11 @@ td.duration.is-hidden-duration {
   }
 
   #show_all_filters_mobile {
-    display: inline-flex; /* или block, как тебе по дизайну */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
   }
 }
-
 
 .filters-body {
     display: contents;
@@ -1799,7 +1768,6 @@ td.duration.is-hidden-duration {
 .custom-select {
     height: fit-content;
 }
-
 
 @media (max-width: 992px) {
 .footer__copy {
@@ -1824,140 +1792,131 @@ td.duration.is-hidden-duration {
     flex-direction: row;
     gap: 24px;
 }
-
 }
 
 .bond-chart {
-    margin-bottom: 16px;
-
+  margin-bottom: 16px;
 }
 
 .common-pager .pager {
-    flex: 1;
-    display: flex
-;
-    justify-content: center;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    margin-top: 0px;
-    margin-bottom: 0px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 @media (max-width: 645px) {
-.screener__table-wrapper {
+  .screener__table-wrapper {
     display: inline-block;
     min-width: 100%;
     background: none;
     margin-top: 5px;
     padding: 0px;
-}	
+  }
 
-
-.issuer-tables .screener__table-wrapper, .portfolio-tables .screener__table-wrapper {
-        padding-bottom: 0px;
-		overflow-x: auto;
-		border: none;
-    }
-
-
-.common-pager .pager {
+  .issuer-tables .screener__table-wrapper, .portfolio-tables .screener__table-wrapper {
+    padding-bottom: 0px;
+    overflow-x: auto;
+    border: none;
+  }
+  .common-pager .pager {
     FONT-WEIGHT: 500;
     margin-bottom: 16px;
     height: max-content;
     justify-content: center;
     overflow-x: hidden;
     overflow-y: hidden;
-}
-
-	
+  }
 }
 
 @media (max-width: 768px) {
-	
-.filters-left {
+
+  .filters-left {
     width: 100% !important;
     display: ruby;
-}
+  }
 
-.filters-left {
+  .filters-left {
     max-width: 100% !important;
-}
-.filters-left .custom-select {
-    width: calc(50% - 11px)!important;
-}	
+  }
 
-.custom-select:nth-child(2n) {
+  .filters-left .custom-select {
+    width: calc(50% - 11px) !important;
+  }
+
+  .custom-select:nth-child(2n) {
     margin-right: 0px !important;
-}
+  }
 
-    .screener__filter-btns {
-        display: flex;
-        flex-direction: row;
-        flex: unset;
-        flex-wrap: nowrap;
-        align-content: baseline;
-        justify-content: space-between;
-        align-items: baseline;
-        width: 100%;
-        flex-direction: row;
-        gap: 24px;
-    }
-	
-	.screener__reset {
+  .screener__filter-btns {
+    display: flex;
+    flex-direction: row;
+    flex: unset;
+    flex-wrap: nowrap;
+    align-content: baseline;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .screener__reset {
     justify-content: flex-end;
     padding: 10px 0px;
-	margin-right: 7px;
-}
+    margin-right: 7px;
+  }
 
-.screener__done {
+  .screener__done {
     min-width: max-content;
-}
-
+  }
 }
 
 @media (max-width: 576px) {
-.filters-left {
-    max-width: 100%!important;
-}
-.filters-left .custom-select {
+  .filters-left {
+    max-width: 100% !important;
+  }
+
+  .filters-left .custom-select {
     width: 100% !important;
-}	
+  }
 
-    .screener__filter-btns {
-        align-content: space-between;
-        justify-content: center;
-        width: 100%;
-        flex-direction: row;
-        gap: 12px;
-    }
-    
-	#show_all_filters_mobile {
-        margin-top: -30px;
-    }
-	.common-pager .pager {
+  .screener__filter-btns {
+    align-content: space-between;
+    justify-content: center;
+    width: 100%;
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  #show_all_filters_mobile {
+    margin-top: -30px;
+  }
+
+  .common-pager .pager {
     margin-bottom: 32px;
-}
+  }
 }
 
 .filters-left {
-    width: calc(70% - 11px);
-    display: ruby;
-
+  width: calc(70% - 11px);
+  display: ruby;
 }
 
 .filters-left .filter-rating {
-    width: auto;
-	margin-right: 16px;
-	margin-bottom: 16px;
+  width: auto;
+  margin-right: 16px;
+  margin-bottom: 16px;
 }
  
 .filters-left .custom-select {
-    width: auto;
-	margin-right: 16px;
-	margin-bottom: 16px;
+  width: auto;
+  margin-right: 16px;
+  margin-bottom: 16px;
 }
-
-
 
 /* затемнение под поп-ап настроек */
 .screener-modal-overlay--settings {
@@ -1981,28 +1940,6 @@ td.duration.is-hidden-duration {
 }
 
 @media (max-width: 767px) {
-  .screener__toggle-columns {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 360px;
-    width: calc(100% - 32px);
-    max-height: 80vh;
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-    z-index: 910;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-  }
-
-  .screener__toggle-columns.is-open {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%);
-  }
 
   .screener__toggle-btns {
     max-height: calc(80vh - 72px);
@@ -2035,6 +1972,7 @@ td.duration.is-hidden-duration {
     cursor: pointer;
   }
 }
+
 @media (max-width: 767px) {
   .screener__toggle-columns {
     position: fixed;
@@ -2046,7 +1984,7 @@ td.duration.is-hidden-duration {
     max-height: 80vh;
     background: #fff;
     border-radius: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
     z-index: 910;
     opacity: 0;
     pointer-events: none;
@@ -2054,20 +1992,39 @@ td.duration.is-hidden-duration {
   }
 
   .screener__toggle-columns.is-open {
-    display: block;                       /* вот эта строка нужна */
+    display: block;
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%);
   }
-  
 
+  /* при .active показываем */
+  .screener__toggle-columns.active {
+    display: block;
+  }
+
+  /* фон-затемнение */
+  /* шапка попапа */
+  .screener__toggle-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .screener__toggle-header h3 {
+    font-size: 18px;
+    line-height: 1.2;
+  }
 }
-  .bond-links {
-    margin-bottom: 8px;
+
+.bond-links {
+  margin-bottom: 8px;
 }
 
 @media only screen and (max-width: 1150px) {
-    .bond-info__item:first-child {
-        display: block;
-    }
+  .bond-info__item:first-child {
+    display: block;
+  }
 }
