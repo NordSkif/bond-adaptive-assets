@@ -180,7 +180,7 @@
 
 
 /* === Screener: подмена "легенды" (заголовков) таблицы только CSS === */
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th > div{
+.screener__table-wrapper-2 #screenerTable thead.table-header th > div{
     display:flex;
     align-items:center;
     gap:8px;
@@ -192,19 +192,19 @@
 }
 
 /* иконки/тултипы возвращаем к нормальному размеру */
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th .table__icons-header{
+.screener__table-wrapper-2 #screenerTable thead.table-header th .table__icons-header{
     display:inline-flex;
     align-items:center;
     gap:6px;
-    font-size:62px;
+    font-size: 16px;
     line-height:1;
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th .table__icons-header *{
+.screener__table-wrapper-2 #screenerTable thead.table-header th .table__icons-header *{
     font-size:inherit;
 }
 
 /* базовый вид подменного текста */
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th > div::before{
     font-size:16px;
     font-weight:400;
     color:inherit; /* если нужно строго как на макете - можно заменить на #8f98ab */
@@ -212,36 +212,36 @@
 }
 
 /* === Точные подписи как в макете === */
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.title > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.title > div::before{
     content:"Название";
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.params > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.params > div::before{
     content:"Тип";
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.nominalPercentage > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.nominalPercentage > div::before{
     content:"Цена, %";
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.ytm > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.ytm > div::before{
     content:"YTM, %";
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.mSpread > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.mSpread > div::before{
     content:"М-спред";
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.gSpread > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.gSpread > div::before{
     content:"G-спред";
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.term > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.term > div::before{
     content:"Срок, лет";
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.duration > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.duration > div::before{
     content:"Дюрация, лет";
 }
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th.liquidity > div::before{
+.screener__table-wrapper-2 #screenerTable thead.table-header th.liquidity > div::before{
     content:"Ликвидность";
     white-space:normal; /* разрешаем перенос, чтобы не разъезжалось на узких ширинах */
 }
 
-#screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th .table__icons-header {
+.screener__table-wrapper-2 #screenerTable thead.table-header th .table__icons-header {
     display: inline-flex;
     flex-direction: row;
 }
