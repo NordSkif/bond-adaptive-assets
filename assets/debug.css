@@ -299,27 +299,22 @@
     }
 }
 
-/* 1) ЛЕВАЯ колонка: убираем flex у <p> с названием параметра */
-section.bond tr > td:first-child > p{
-    display:inline;            /* ключ: больше не flex-item’ы */
+/* 1) Убираем flex ТОЛЬКО у тех <p>, где есть tooltip (иначе иконка будет отдельным flex-item) */
+section.bond td:first-child p:has(> span.tooltip){
+    display:block !important;      /* вместо flex */
 }
 
-/* 2) Значок вопроса стабильный, inline */
-section.bond span.tooltip{
+/* 2) Значок всегда inline и не живёт своей жизнью */
+section.bond td:first-child span.tooltip{
     display:inline-flex !important;
     vertical-align:middle;
-    line-height:12px;
-    margin-left:6px;           /* вместо пробелов в HTML */
+    margin-left:6px;              /* вместо пробела */
+    flex:none;
 }
 
-/* 3) Контент тултипа выводим из потока, чтобы он не ломал переносы */
-section.bond span.tooltip-content{
-    position:fixed;            /* раз у тебя в инлайне left/top, значит им нужен fixed */
+/* 3) tooltip-content не должен участвовать в переносах строки */
+section.bond td:first-child span.tooltip-content{
+    position:fixed;               /* у тебя left/top в inline-style -> им нужен fixed */
     z-index:9999;
-    max-width:min(320px, calc(100vw - 24px));
-}
-
-/* если тултип скрыт через visibility, выключаем клики */
-section.bond span.tooltip-content[style*="visibility: hidden"]{
-    pointer-events:none;
+    max-width:min(360px, calc(100vw - 24px));
 }
