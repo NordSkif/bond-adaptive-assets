@@ -136,6 +136,16 @@
     align-content: center;
 }
 
+/* ==== Поджимаем элементы  ==== */
+
+@media only screen and (max-width: 300px) {
+    .bond-table table tr  {
+        gap: 5px;
+    }
+    .screener__table-wrapper-2 #screenerTable tbody tr {
+        gap: 0px;
+    }
+}
 
 
 @media only screen and (max-width: 390px) {
