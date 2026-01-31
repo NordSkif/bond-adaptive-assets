@@ -297,9 +297,31 @@
     }
 }
 
-span.tooltip{
-    display:inline-flex !important;
-    vertical-align:middle;
-    line-height:12px;
+/* 1) Значок рисуем в конце текста */
+.bond td p{
+    display:flex;            /* как есть у тебя */
+    flex-wrap:wrap;
+    gap:0;                   /* важно, иначе появится "дырка" */
 }
-.tooltip-inline-wrap{ min-width:0; }
+
+/* 2) прячем реальный span.tooltip, но оставляем в DOM для логики тултипа */
+.bond td p > span.tooltip{
+    display:none !important;
+}
+
+/* 3) рисуем "?" как псевдоэлемент у <p> (или у конкретного текста-спана, если есть) */
+.bond td p::after{
+    content:"?";
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:12px;
+    height:12px;
+    margin-left:6px;
+
+    font-size:8px;
+    line-height:12px;
+    border:1px solid #acacac;
+    border-radius:50%;
+    color:#acacac;
+}
