@@ -237,6 +237,6 @@
     content:"Дюрация, лет";
 }
 .screener__table-wrapper-2 #screenerTable thead.table-header th.liquidity > div::before{
-    content:"Ликвидность, тыс. руб./день";
+    content:"Ликвидность";
     white-space:normal; /* разрешаем перенос, чтобы не разъезжалось на узких ширинах */
 }
