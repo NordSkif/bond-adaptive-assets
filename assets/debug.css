@@ -297,3 +297,9 @@
     }
 }
 
+span.tooltip{
+    display:inline-flex !important;
+    vertical-align:middle;
+    line-height:12px;
+}
+.tooltip-inline-wrap{ min-width:0; }
