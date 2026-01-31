@@ -1,1 +1,4 @@
 /* ==== Debug CSS ==== */
+#screener_results_wrap .common-pager .pager {
+    justify-content: flex-end;
+}
