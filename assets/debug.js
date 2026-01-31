@@ -1,50 +1,25 @@
-(() => {
-    function glueTooltips(root = document) {
-        root.querySelectorAll('span.tooltip:not([data-glued])').forEach(tip => {
-            const p = tip.parentElement;
-            if (!p) return;
+document.addEventListener('DOMContentLoaded', () => {
+    const scope = document.querySelector('section.bond') || document;
 
-            const cs = getComputedStyle(p);
-            if (cs.display !== 'flex' && cs.display !== 'inline-flex') return;
+    scope.querySelectorAll('p').forEach(p => {
+        const tips = Array.from(p.querySelectorAll(':scope > span.tooltip'));
 
-            // создаем враппер-строку (один flex-item)
-            const wrap = document.createElement('span');
-            wrap.className = 'tooltip-glue';
-            wrap.style.minWidth = '0';
+        tips.forEach((tip, idx) => {
+            const content = tip.nextElementSibling;
+            const hasContent = content && content.classList.contains('tooltip-content') && content.textContent.trim();
 
-            // переносим в wrap текстовые ноды/инлайны ДО tooltip и сам tooltip
-            let node = p.firstChild;
-            while (node) {
-                const next = node.nextSibling;
-                wrap.appendChild(node);
-                if (node === tip) break;
-                node = next;
+            // нет нормального контента, значит тултип мусорный
+            if (!hasContent) {
+                tip.remove();
+                if (content && content.classList.contains('tooltip-content')) content.remove();
+                return;
             }
 
-            // вставляем wrap обратно
-            p.insertBefore(wrap, p.firstChild);
-
-            // если после tooltip есть tooltip-content и он должен оставаться рядом - тоже можно внутрь wrap:
-            const nextEl = wrap.nextSibling;
-            if (nextEl && nextEl.nodeType === 1 && nextEl.classList.contains('tooltip-content')) {
-                wrap.appendChild(nextEl);
+            // если тултипов несколько, оставляем только первый
+            if (idx > 0) {
+                tip.remove();
+                content.remove();
             }
-
-            tip.dataset.glued = '1';
         });
-    }
-
-    const run = () => glueTooltips(document);
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', run, { once: true });
-    } else {
-        run();
-    }
-
-    new MutationObserver(muts => {
-        for (const m of muts) for (const n of m.addedNodes) {
-            if (n && n.nodeType === 1) glueTooltips(n);
-        }
-    }).observe(document.body, { childList: true, subtree: true });
-})();
+    });
+});
