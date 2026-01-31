@@ -31,3 +31,20 @@
         align-items: center;
     }
 }
+
+
+
+
+
+
+
+/* ==== Временный HOTFIX ==== */
+
+.screener__table-wrapper {
+    max-width: -webkit-fill-available;
+    overflow-x: scroll;
+}
+
+.table thead th.title  {
+    position: relative;
+}
