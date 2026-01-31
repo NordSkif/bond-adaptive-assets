@@ -55,10 +55,8 @@
     .issuer-desc p {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 18px;
         line-height: 100%;
-        letter-spacing: -1.5%;
     }
 }
 
@@ -157,7 +155,7 @@
 
 
 
-/* ==== Временный HOTFIX
+
 
 .screener__table-wrapper {
     max-width: -webkit-fill-available;
@@ -168,4 +166,3 @@
     position: relative;
 }
 
- ==== */
