@@ -45,6 +45,25 @@
     }
 }
 
+
+#screener_results_wrap .tooltip.action-tooltip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0px 20px;
+    min-width: 32px !important;
+    border-radius: 12px;
+    background: rgba(245, 248, 249, 1);
+    color: #1db954;
+    font-size: 32px;
+    font-weight: 200;
+    border: none;
+    margin-bottom: -35px;
+    opacity: 1;
+}
+
 /* ==== Правим выравнивание в блоке "кредитные рейтинги" ==== */
 
 .bond-table table tbody tr td:first-child {
