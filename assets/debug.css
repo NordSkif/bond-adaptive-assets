@@ -17,3 +17,8 @@
 #screener_results_wrap .common-pager {
     justify-content: flex-end;
 }
+
+#screener_results_wrap .common-pager .rows-count-text {
+    color: #8599B1;
+    margin-top: 25px;
+}
