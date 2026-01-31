@@ -264,3 +264,18 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* === Выравниваем таблицу на странице облигации  === */
+
+@media (max-width: 768px) {
+    .bond-payments table {
+        margin-left: 0px;
+    }
+    .bond-payments table tbody tr td {
+        padding-left: 0;
+    }
+    .bond-payments table thead th {
+        padding-left: 0;
+    }
+}
+
