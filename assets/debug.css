@@ -35,10 +35,6 @@
 }
 
 
-background: rgba(55, 63, 72, 1);
-
-
-
 @media only screen and (max-width: 390px) {
     .bond-big-card__header, .issuer .bond-big-card__header {
         align-items: flex-start;
