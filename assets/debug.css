@@ -267,27 +267,21 @@
 
 /* В одну строку делаем купонный платеж */
 
-/* Только "Частота купона": <td> где подряд идут .val и второй начинается с "(" */
-.bond-info__item table td > p.val + p.val:is(:first-child, :nth-child(2)) {}
-
-/* Реально рабочее (без лишних селекторов-ловушек) */
-.bond-info__item table td > p.val + p.val {
-    display: inline;
-    margin: 0;
+/* ТОЛЬКО тот <td>, где есть две подряд p.val */
+.bond-info__item table td:has(> p.val + p.val) {
+    white-space: nowrap; /* не даём переносить на новую строку */
 }
 
-.bond-info__item table td > p.val {
-    display: inline;
-    margin: 0;
+/* Обе p.val в этом td делаем строчными и убиваем отступы */
+.bond-info__item table td:has(> p.val + p.val) > p.val {
+    display: inline !important;
+    margin: 0 !important;
 }
 
-/* Небольшой пробел перед "(182 дня)" */
-.bond-info__item table td > p.val + p.val::before {
-    content: " ";
+/* Отступ перед "(182 дня)" */
+.bond-info__item table td:has(> p.val + p.val) > p.val + p.val {
+    margin-left: 0.35em !important;
 }
-
-
-
 
 /* === Выравниваем таблицу на странице облигации  === */
 
