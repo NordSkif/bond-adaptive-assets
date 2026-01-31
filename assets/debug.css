@@ -79,22 +79,28 @@
 /* ====  Шрифт рейтинга как в макете ==== */
 
 .link-arrow {
-    font-family: Mulish !important;
-    font-weight: 700 !important;
-    font-size: 18px !important;
-    letter-spacing: -1.5% !important;
+    font-family: Mulish;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -1.5%;
 }
 
 @media only screen and (max-width: 992px) {
-    font-size: 16px !important;
+    .link-arrow {
+        font-size: 16px;
+    }
 }
 
 @media only screen and (max-width: 768px) {
-    font-size: 14px !important;
+    .link-arrow {
+        font-size: 14px;
+    }
 }
 
 @media only screen and (max-width: 450px) {
-    font-weight: 500 !important;
+    .link-arrow {
+        font-weight: 500;
+    }
 }
 
 /* ==== Правим цвет описания эмитента ==== */
