@@ -166,16 +166,6 @@
 
 
 
-/* ==== Правим выравнивание в блоке "кредитные рейтинги"
-.screener__table-wrapper {
-    max-width: -webkit-fill-available;
-    overflow-x: scroll;
-}
-
-.table thead th.title, .table tbody td.title  {
-    position: relative;
-}
-==== */
 
 
 
@@ -244,4 +234,24 @@
 .screener__table-wrapper-2 #screenerTable thead.table-header th .table__icons-header {
     display: inline-flex;
     flex-direction: row;
+}
+
+
+/* === СКРИНЕР === */
+
+/* === Откат расположения панелей в фильтре === */
+
+.screener__filters-row {
+    justify-content: flex-start;
+}
+
+/* === Собственно хот-фикс === */
+
+.screener__table-wrapper {
+    max-width: -webkit-fill-available;
+    overflow-x: scroll;
+}
+
+.table thead th.title, .table tbody td.title  {
+    position: relative;
 }
