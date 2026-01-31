@@ -48,6 +48,20 @@
     }
 }
 
+
+
+
+@media only screen and (max-width: 768px) {
+    .issuer-desc p {
+        font-family: Mulish;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 18px;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+    }
+}
+
 /* ==== Смена порядка ==== */
 
 .screener .init {
