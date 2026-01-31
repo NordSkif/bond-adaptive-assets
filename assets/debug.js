@@ -1,57 +1,50 @@
 (() => {
-    function wrapTextAndTipIfFlex(tip) {
-        const p = tip.parentElement;
-        if (!p || p.nodeType !== 1) return;
-        if (p.hasAttribute('data-tip-wrapped')) return;
+    function glueTooltips(root = document) {
+        root.querySelectorAll('span.tooltip:not([data-glued])').forEach(tip => {
+            const p = tip.parentElement;
+            if (!p) return;
 
-        const cs = getComputedStyle(p);
-        if (cs.display !== 'flex' && cs.display !== 'inline-flex') return;
+            const cs = getComputedStyle(p);
+            if (cs.display !== 'flex' && cs.display !== 'inline-flex') return;
 
-        const wrap = document.createElement('span');
-        wrap.className = 'tooltip-inline-wrap';
-        wrap.style.minWidth = '0'; // важно для переноса текста внутри flex-item
+            // создаем враппер-строку (один flex-item)
+            const wrap = document.createElement('span');
+            wrap.className = 'tooltip-glue';
+            wrap.style.minWidth = '0';
 
-        // переносим в wrap все ноды до и включая сам tip
-        let node = p.firstChild;
-        while (node) {
-            const next = node.nextSibling;
-            wrap.appendChild(node);
-            if (node === tip) break;
-            node = next;
-        }
-
-        p.insertBefore(wrap, p.firstChild);
-        p.setAttribute('data-tip-wrapped', '1');
-    }
-
-    function fixTooltips(root = document) {
-        root.querySelectorAll('span.tooltip:not([data-nbsp-fixed])').forEach(tip => {
-            // 1) NBSP в хвост текста перед tip
-            const prev = tip.previousSibling;
-            if (prev && prev.nodeType === Node.TEXT_NODE) {
-                prev.nodeValue = prev.nodeValue.replace(/[ \t\r\n]+$/, '') + '\u00A0';
-            } else {
-                tip.parentNode.insertBefore(document.createTextNode('\u00A0'), tip);
+            // переносим в wrap текстовые ноды/инлайны ДО tooltip и сам tooltip
+            let node = p.firstChild;
+            while (node) {
+                const next = node.nextSibling;
+                wrap.appendChild(node);
+                if (node === tip) break;
+                node = next;
             }
-            tip.setAttribute('data-nbsp-fixed', '1');
 
-            // 2) если родитель flex, делаем text+tip одним flex-item
-            wrapTextAndTipIfFlex(tip);
+            // вставляем wrap обратно
+            p.insertBefore(wrap, p.firstChild);
+
+            // если после tooltip есть tooltip-content и он должен оставаться рядом - тоже можно внутрь wrap:
+            const nextEl = wrap.nextSibling;
+            if (nextEl && nextEl.nodeType === 1 && nextEl.classList.contains('tooltip-content')) {
+                wrap.appendChild(nextEl);
+            }
+
+            tip.dataset.glued = '1';
         });
     }
 
+    const run = () => glueTooltips(document);
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => fixTooltips(), { once: true });
+        document.addEventListener('DOMContentLoaded', run, { once: true });
     } else {
-        fixTooltips();
+        run();
     }
 
-    const mo = new MutationObserver(muts => {
-        for (const m of muts) {
-            for (const n of m.addedNodes) {
-                if (n && n.nodeType === 1) fixTooltips(n);
-            }
+    new MutationObserver(muts => {
+        for (const m of muts) for (const n of m.addedNodes) {
+            if (n && n.nodeType === 1) glueTooltips(n);
         }
-    });
-    mo.observe(document.body, { childList: true, subtree: true });
+    }).observe(document.body, { childList: true, subtree: true });
 })();
