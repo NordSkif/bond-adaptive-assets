@@ -56,6 +56,10 @@
 .bond-table.issuer-history .history-date {
     align-content: center;
 }
+.bond-table.issuer-history .history-event {
+    align-content: center;
+}
+
 
 
 @media only screen and (max-width: 390px) {
