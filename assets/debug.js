@@ -1,23 +1,44 @@
-function fixTooltipNbsp(root = document) {
-    root.querySelectorAll('section.bond span.tooltip:not([data-nbsp-fixed])').forEach(tip => {
-        const prev = tip.previousSibling;
+(() => {
+    function fixTooltipGlue(root) {
+        const scope = root && root.querySelectorAll ? root : document;
 
-        if (prev && prev.nodeType === Node.TEXT_NODE) {
-            prev.nodeValue = prev.nodeValue.replace(/\s*$/, '\u00A0');
-        } else {
-            tip.parentNode.insertBefore(document.createTextNode('\u00A0'), tip);
+        const tips = scope.querySelectorAll('span.tooltip:not([data-nbsp-fixed])');
+        tips.forEach(tip => {
+            // опционально: если tooltip бывает не только "?"
+            // if (tip.textContent.trim() !== '?') return;
+
+            const prev = tip.previousSibling;
+
+            if (prev && prev.nodeType === Node.TEXT_NODE) {
+                // убираем хвостовые пробелы/переводы строк и добавляем NBSP
+                prev.nodeValue = prev.nodeValue.replace(/[ \t\r\n]+$/, '') + '\u00A0';
+            } else {
+                // если перед tooltip не текст (или вообще ничего), вставляем NBSP отдельной нодой
+                tip.parentNode.insertBefore(document.createTextNode('\u00A0'), tip);
+            }
+
+            tip.setAttribute('data-nbsp-fixed', '1');
+        });
+    }
+
+    function boot() {
+        fixTooltipGlue(document);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot, { once: true });
+    } else {
+        boot();
+    }
+
+    // На случай динамической подгрузки/перерендера
+    const mo = new MutationObserver(muts => {
+        for (const m of muts) {
+            for (const n of m.addedNodes) {
+                if (n && n.nodeType === 1) fixTooltipGlue(n);
+            }
         }
-
-        tip.setAttribute('data-nbsp-fixed', '1');
     });
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    fixTooltipNbsp();
-
-    const host = document.querySelector('section.bond');
-    if (!host) return;
-
-    const mo = new MutationObserver(() => fixTooltipNbsp(host));
-    mo.observe(host, { childList: true, subtree: true });
-});
+    if (document.body) mo.observe(document.body, { childList: true, subtree: true });
+})();

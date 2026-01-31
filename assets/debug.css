@@ -265,29 +265,28 @@
     scrollbar-width: none;
 }
 
-/* фиксируем значок ? */
-section.bond span.tooltip{
-    display: inline-flex;        /* ключевой фикс: не flex */
-    align-items: center;
-    justify-content: center;
-    width: 12px;
-    height: 12px;
-    flex: 0 0 12px;
-    font-size: 8px;
-    line-height: 12px;           /* стабилизирует высоту строки */
-    border: 1px solid #acacac;
-    border-radius: 50%;
-    color: #acacac;
-    vertical-align: middle;      /* стабильнее чем super */
-    margin-left: 6px;
-    position: relative;
-    top: -1px;                   /* тонкая подстройка, если нужно */
+/* В одну строку делаем купонный платеж */
+
+/* Только "Частота купона": <td> где подряд идут .val и второй начинается с "(" */
+.bond-info__item table td > p.val + p.val:is(:first-child, :nth-child(2)) {}
+
+/* Реально рабочее (без лишних селекторов-ловушек) */
+.bond-info__item table td > p.val + p.val {
+    display: inline;
+    margin: 0;
 }
 
-.val {
-    display: flex;
-    flex-direction: row;
+.bond-info__item table td > p.val {
+    display: inline;
+    margin: 0;
 }
+
+/* Небольшой пробел перед "(182 дня)" */
+.bond-info__item table td > p.val + p.val::before {
+    content: " ";
+}
+
+
 
 
 /* === Выравниваем таблицу на странице облигации  === */
