@@ -265,6 +265,26 @@
     scrollbar-width: none;
 }
 
+/* фиксируем значок ? */
+section.bond span.tooltip{
+    display: inline-flex;        /* ключевой фикс: не flex */
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    font-size: 8px;
+    line-height: 12px;           /* стабилизирует высоту строки */
+    border: 1px solid #acacac;
+    border-radius: 50%;
+    color: #acacac;
+    vertical-align: middle;      /* стабильнее чем super */
+    margin-left: 6px;
+    position: relative;
+    top: -1px;                   /* тонкая подстройка, если нужно */
+}
+
+
 /* === Выравниваем таблицу на странице облигации  === */
 
 @media (max-width: 768px) {
