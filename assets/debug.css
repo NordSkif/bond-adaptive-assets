@@ -294,6 +294,9 @@
     .bond-payments table thead th {
         padding-left: 0 !important;
     }
+    .bond-table table tr {
+        padding-left: 0; !important;
+    }
 }
 
 /* 1) ЛЕВАЯ колонка: убираем flex у <p> с названием параметра */
