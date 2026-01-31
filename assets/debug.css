@@ -267,20 +267,19 @@
 
 /* В одну строку делаем купонный платеж */
 
-/* ТОЛЬКО тот <td>, где есть две подряд p.val */
-.bond-info__item table td:has(> p.val + p.val) {
-    white-space: nowrap; /* не даём переносить на новую строку */
+/* Строка "Частота купона" (5-я), правая ячейка (2-я колонка) */
+.bond-info__item table tbody tr:nth-of-type(5) > td:nth-of-type(2) {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline;
+    gap: 0.35em;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
-/* Обе p.val в этом td делаем строчными и убиваем отступы */
-.bond-info__item table td:has(> p.val + p.val) > p.val {
-    display: inline !important;
+/* Убираем стандартные отступы у <p> */
+.bond-info__item table tbody tr:nth-of-type(5) > td:nth-of-type(2) > p.val {
     margin: 0 !important;
-}
-
-/* Отступ перед "(182 дня)" */
-.bond-info__item table td:has(> p.val + p.val) > p.val + p.val {
-    margin-left: 0.35em !important;
 }
 
 /* === Выравниваем таблицу на странице облигации  === */
