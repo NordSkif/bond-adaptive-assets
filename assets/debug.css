@@ -196,7 +196,7 @@
     display:inline-flex;
     align-items:center;
     gap:6px;
-    font-size:12px;
+    font-size:62px;
     line-height:1;
 }
 #screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th .table__icons-header *{
@@ -205,7 +205,7 @@
 
 /* базовый вид подменного текста */
 #screenerTable .screener__table-wrapper-2 #screenerTable thead.table-header th > div::before{
-    font-size:12px;
+    font-size:16px;
     font-weight:400;
     color:inherit; /* если нужно строго как на макете - можно заменить на #8f98ab */
     white-space:nowrap;
