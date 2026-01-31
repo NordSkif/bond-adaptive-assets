@@ -260,7 +260,7 @@
 
 /* === Убираем серкую полоску скролла  === */
 
-.bond-payments table {
+.bond-payments table, .bond-table table  {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
