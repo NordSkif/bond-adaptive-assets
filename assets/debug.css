@@ -42,6 +42,14 @@
     }
 }
 
+/* ==== Смена порядка ==== */
+
+.screener .init {
+    flex-direction: row-reverse;
+}
+
+/* ==== Смена иконки в мобильных версиях странициы эмитента ==== */
+
 @media only screen and (max-width: 768px) {
 #screener_results_wrap .tooltip.action-tooltip {
     display: flex;
