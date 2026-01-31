@@ -2,3 +2,14 @@
 #screener_results_wrap .common-pager .pager {
     justify-content: flex-end;
 }
+
+#screener_results_wrap .common-pager .pager {
+    flex: inherit;
+}
+
+#screener_results_wrap .common-pager .rows-count-text {
+    display: flex !important;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+}
