@@ -255,3 +255,12 @@
 .table thead th.title, .table tbody td.title  {
     position: relative;
 }
+
+/* === ОБЩЕЕ === */
+
+/* === Убираем серкую полоску скролла  === */
+
+.bond-payments table {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
