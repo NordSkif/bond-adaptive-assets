@@ -38,6 +38,36 @@
 
 
 
+@media only screen and (max-width: 390px) {
+    .bond-big-card__header, .issuer .bond-big-card__header {
+        align-items: flex-start;
+        word-break:
+    }
+}
+
+
+/* ==== Правим выравнивание в блоке "события эмитента" ==== */
+
+.bond-table.issuer-history .history-date {
+    align-content: center;
+}
+
+
+@media only screen and (max-width: 390px) {
+    .bond-big-card__header, .issuer .bond-big-card__header {
+        font-family: Mulish;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 16px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+    }
+}
+
+
+
 
 
 /* ==== Временный HOTFIX
