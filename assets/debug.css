@@ -23,3 +23,11 @@
     color: #8599B1;
     margin-top: 25px;
 }
+
+/* ==== Правим выравнивание на странице эмитента  ==== */
+
+@media only screen and (max-width: 768px) {
+    .bond-table.issuer-ratings td, .bond-table.issuer-ratings th {
+        align-items: center;
+    }
+}
