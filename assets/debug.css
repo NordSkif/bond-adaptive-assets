@@ -13,3 +13,7 @@
     align-items: flex-start;
     margin: 0;
 }
+
+#screener_results_wrap .common-pager {
+    justify-content: flex-end;
+}
