@@ -284,6 +284,11 @@ section.bond span.tooltip{
     top: -1px;                   /* тонкая подстройка, если нужно */
 }
 
+.val {
+    display: flex;
+    flex-direction: row;
+}
+
 
 /* === Выравниваем таблицу на странице облигации  === */
 
