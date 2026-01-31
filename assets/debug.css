@@ -17,11 +17,12 @@
 
 #screener_results_wrap .common-pager {
     justify-content: flex-end;
+    margin-bottom: -5px;
 }
 
 #screener_results_wrap .common-pager .rows-count-text {
     color: #8599B1;
-    margin-top: 25px;
+    margin-top: 0px;
 }
 
 /* ==== Правим выравнивание на странице эмитента  ==== */
@@ -38,13 +39,15 @@
 
 
 
-/* ==== Временный HOTFIX ==== */
+/* ==== Временный HOTFIX
 
 .screener__table-wrapper {
     max-width: -webkit-fill-available;
     overflow-x: scroll;
 }
 
-.table thead th.title  {
+.table thead th.title, .table tbody td.title  {
     position: relative;
 }
+
+ ==== */
