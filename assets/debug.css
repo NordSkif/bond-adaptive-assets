@@ -156,7 +156,7 @@
 
 
 
-
+/* ==== Правим выравнивание в блоке "кредитные рейтинги"
 .screener__table-wrapper {
     max-width: -webkit-fill-available;
     overflow-x: scroll;
@@ -165,4 +165,4 @@
 .table thead th.title, .table tbody td.title  {
     position: relative;
 }
-
+==== */
