@@ -296,31 +296,27 @@
     }
 }
 
-/* 1) Значок рисуем в конце текста */
-.bond td p{
-    display:flex;            /* как есть у тебя */
-    flex-wrap:wrap;
-    gap:0;                   /* важно, иначе появится "дырка" */
+/* 1) ЛЕВАЯ колонка: убираем flex у <p> с названием параметра */
+section.bond tr > td:first-child > p{
+    display:inline;            /* ключ: больше не flex-item’ы */
 }
 
-/* 2) прячем реальный span.tooltip, но оставляем в DOM для логики тултипа */
-.bond td p > span.tooltip{
-    display:none !important;
-}
-
-/* 3) рисуем "?" как псевдоэлемент у <p> (или у конкретного текста-спана, если есть) */
-.bond td p::after{
-    content:"?";
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:12px;
-    height:12px;
-    margin-left:6px;
-
-    font-size:8px;
+/* 2) Значок вопроса стабильный, inline */
+section.bond span.tooltip{
+    display:inline-flex !important;
+    vertical-align:middle;
     line-height:12px;
-    border:1px solid #acacac;
-    border-radius:50%;
-    color:#acacac;
+    margin-left:6px;           /* вместо пробелов в HTML */
+}
+
+/* 3) Контент тултипа выводим из потока, чтобы он не ломал переносы */
+section.bond span.tooltip-content{
+    position:fixed;            /* раз у тебя в инлайне left/top, значит им нужен fixed */
+    z-index:9999;
+    max-width:min(320px, calc(100vw - 24px));
+}
+
+/* если тултип скрыт через visibility, выключаем клики */
+section.bond span.tooltip-content[style*="visibility: hidden"]{
+    pointer-events:none;
 }
