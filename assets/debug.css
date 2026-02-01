@@ -134,10 +134,10 @@
     }
 }
 
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 576px) {
     #screener_results_wrap h2 {
-        margin-left: 10px;
-        margin-top: 16px;
+        margin-left: 10px !important;
+        margin-top: 16px !important;
     }
     .screener__table-wrapper screener__table-wrapper-2 is-mobile {
         overflow: hidden;
