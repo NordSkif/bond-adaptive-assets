@@ -90,6 +90,13 @@
 }
 } ==== */
 
+/* ====  Отступы в скринере  ==== */
+
+@media only screen and (max-width: 1280px) {
+    .table__icons-header {
+        gap: 0px;
+    }
+
 /* ====  Шрифт рейтинга как в макете ==== */
 
 .link-arrow {
