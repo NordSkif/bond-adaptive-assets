@@ -150,6 +150,11 @@
     }
 }
 
+@media (max-width: 768px) {
+    .screener__table-wrapper-2 #screenerTable tbody tr {
+        overflow-y: hidden;
+    }
+}
 
 /* общий цвет линии можешь привязать к своей переменной */
 #screenerTable tbody tr{
