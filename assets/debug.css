@@ -214,7 +214,6 @@
     }
 }
 
-
 @media only screen and (max-width: 390px) {
     .bond-big-card__header, .issuer .bond-big-card__header {
         font-family: Mulish;
@@ -227,9 +226,6 @@
         vertical-align: middle;
     }
 }
-
-
-
 
 /* === Выравниванием блоков на странице облигаций */
 
@@ -260,8 +256,6 @@
         font-size: 14px !important;
     }
 }
-
-
 
 /* === Screener: подмена "легенды" (заголовков) таблицы только CSS === */
 .screener__table-wrapper-2 #screenerTable thead.table-header th > div{
