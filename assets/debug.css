@@ -643,5 +643,9 @@
     }
 }
 
-
+/* Только страница облигации (уникальный корневой блок: #root > section.bond.with-tooltips) */
+body.site #root > section.bond.with-tooltips span.tooltip{
+    position: absolute;
+    margin-left: 5px;
+}
 
