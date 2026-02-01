@@ -635,11 +635,11 @@
 
 /* Выравнивание картинки "к верху" */
 
-@media (max-width: 768px) {
+@media (max-width: 390px) {
 
     .bond-big-card__img img {
-        max-height: 100%;
-        max-width: 100%;
+        height: 100%;
+        width: 100%;
     }
 }
 
