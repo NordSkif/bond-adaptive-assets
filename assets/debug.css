@@ -9,7 +9,7 @@
 }
 
 #screener_results_wrap .common-pager .rows-count-text {
-    display: flex !important;
+    display: flex;
     justify-content: flex-start !important;
     align-items: flex-start !important;
     margin: 0 !important;
