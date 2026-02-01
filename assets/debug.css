@@ -231,9 +231,20 @@
 
 
 
+/* === Выравниванием блоков на странице облигаций */
 
-
-
+@media only screen and (max-width: 576px) {
+    .bond-big-card__img {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .bond-big-card__header, .issuer .bond-big-card__header {
+        align-items: flex-start;
+    }
+}
 
 
 /* === Screener: подмена "легенды" (заголовков) таблицы только CSS === */
