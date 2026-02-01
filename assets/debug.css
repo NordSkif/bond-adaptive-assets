@@ -126,7 +126,7 @@
 
 @media only screen and (max-width: 768px) {
     #screener_results_wrap h2 {
-        margin-left: 0px;
+        margin-left: -12px;
         margin-top: 0px;
     }
     .screener__table-wrapper screener__table-wrapper-2 is-mobile {
@@ -141,6 +141,12 @@
     }
     .screener__table-wrapper screener__table-wrapper-2 is-mobile {
         overflow: hidden;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .screener .bond .issuer-tables .start-content .rows-count-visible {
+        display: none;
     }
 }
 
