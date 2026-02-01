@@ -392,8 +392,6 @@
     }
 }
 
-
-
 /* === СКРЫТИЕ БОЛЬШЕ 20 СТРОК + JS  === */
 
 /* скрываем строки, которые “за лимитом” */
@@ -462,5 +460,108 @@
         width: auto;
         white-space: normal;
         overflow-wrap: anywhere;
+    }
+}
+
+/* === СТРАНИЦА ОБЛИГАЦИИ СТРОГО ПО МАКЕТУ  === */
+
+@media (max-width: 1920px) {
+    .bond h2, .bond-table h2 {
+        font-family: Mulish;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 24px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+
+    }
+    .bond-info__item table tbody tr td:first-child {
+        font-family: Mulish;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 18px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+        font-color: #rgba(55, 63, 72, 1);
+    }
+    .bond-info__item table tbody tr td:last-child {
+        font-family: Mulish;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 18px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+    }
+}
+
+@media (max-width: 1200px) {
+    .bond h2, .bond-table h2 {
+        font-family: Mulish;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 24px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+    }
+    .bond-info__item table tbody tr td:first-child {
+        font-family: Mulish;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 18px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+    }
+    .bond-info__item table tbody tr td:last-child {
+        font-family: Mulish;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 18px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+    }
+}
+
+@media (max-width: 992px) {
+    .bond h2, .bond-table h2 {
+        font-family: Mulish;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 20px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+    }
+    .bond-info__item table tbody tr td:first-child {
+        font-family: Mulish;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 18px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
+    }
+    .bond-info__item table tbody tr td:last-child {
+        font-family: Mulish;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 18px;
+        leading-trim: NONE;
+        line-height: 100%;
+        letter-spacing: -1.5%;
+        vertical-align: middle;
     }
 }
