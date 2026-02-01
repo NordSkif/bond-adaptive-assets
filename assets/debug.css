@@ -251,7 +251,7 @@
         font-size: 16px;
     }
     .bond h2, .bond-table h2 {
-        font-size: 16px;
+        font-size: 16px !important;
     }
     .bond-info__item p {
         font-size: 14px;
