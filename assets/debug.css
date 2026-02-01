@@ -465,103 +465,160 @@
 
 /* === СТРАНИЦА ОБЛИГАЦИИ СТРОГО ПО МАКЕТУ  === */
 
+/* === Карточки === */
+
 @media (max-width: 1920px) {
-    .bond h2, .bond-table h2 {
+    .bond h2,
+    .bond-table h2 {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 24px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
-
     }
+
     .bond-info__item table tbody tr td:first-child {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 18px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
         font-color: #rgba(55, 63, 72, 1);
     }
+
     .bond-info__item table tbody tr td:last-child {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 18px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
 }
 
 @media (max-width: 1200px) {
-    .bond h2, .bond-table h2 {
+    .bond h2,
+    .bond-table h2 {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 24px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-info__item table tbody tr td:first-child {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 18px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-info__item table tbody tr td:last-child {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 18px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
 }
 
 @media (max-width: 992px) {
-    .bond h2, .bond-table h2 {
+    .bond h2,
+    .bond-table h2 {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 20px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-info__item table tbody tr td:first-child {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 18px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-info__item table tbody tr td:last-child {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 18px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
 }
+
+/* === Таблица выплат  === */
+
+/* Bond payments table */
+.bond-payments table{
+    width: 100%;
+    border-collapse: separate; /* нужно для box-shadow на tr */
+    border-spacing: 0;
+}
+
+/* базовая сетка и выравнивание */
+.bond-payments th,
+.bond-payments td{
+    padding: 12px 16px;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* если где-то длинный текст, пусть переносится аккуратно */
+.bond-payments td{
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* нижний разделитель на всю ширину: и для хедера, и для строк */
+.bond-payments thead tr,
+.bond-payments tbody tr{
+    box-shadow: inset 0 -1px 0 rgba(239, 242, 246, 1);
+}
+
+/* чтобы у последней строки не было линии снизу (если нужно) */
+.bond-payments tbody tr:last-child{
+    box-shadow: none;
+}
+
+@media (max-width: 1920px) {
+    .bond-payments thead th {
+        font-family: Mulish;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .bond-payments table tbody tr td {
+        font-family: Mulish;
+        font-weight: 700;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .bond-payments thead th {
+        font-family: Mulish;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .bond-payments table tbody tr td {
+        font-family: Mulish;
+        font-weight: 700;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 992px) {
+    .bond-payments thead th {
+        font-family: Mulish;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .bond-payments table tbody tr td {
+        font-family: Mulish;
+        font-weight: 700;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .bond-payments thead th {
+        font-family: Mulish;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .bond-payments table tbody tr td {
+        font-family: Mulish;
+        font-weight: 700;
+        font-size: 18px;
+    }
+}
+
