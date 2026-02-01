@@ -163,7 +163,7 @@
     right: 0;
     bottom: 0;
     height: 1px;
-    background: var(--table-line, #eff2f6;
+    background: #eff2f6;
     pointer-events: none;
 }
 
