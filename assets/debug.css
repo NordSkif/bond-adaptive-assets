@@ -387,3 +387,32 @@
         font-size: 14px;
     }
 }
+
+/* === СКРЫТИЕ БОЛЬШЕ 20 СТРОК + JS  === */
+
+/* скрываем строки, которые “за лимитом” */
+#screenerTable tbody tr.is-hidden-by-limit {
+    display: none !important;
+}
+
+/* ссылка под таблицей */
+.table-more-wrap {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.table-more-btn {
+    background: none;
+    border: 0;
+    padding: 6px 10px;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    color: inherit; /* будет в цвет текста, при желании задашь отдельно */
+    opacity: .85;
+}
+
+.table-more-btn:hover {
+    text-decoration: none;
+    opacity: 1;
+}
