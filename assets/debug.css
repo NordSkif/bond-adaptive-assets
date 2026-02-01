@@ -116,8 +116,9 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .screener bond issuer-tables start-content h2 {
+    #screener_results_wrap h2 {
         margin-left: 10px;
+        margin-top: 16px;
     }
 }
 
