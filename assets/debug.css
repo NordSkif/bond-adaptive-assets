@@ -246,6 +246,16 @@
     }
 }
 
+@media only screen and (max-width: 300px) {
+    .bond-info__item table {
+        font-size: 14px;
+    }
+    .bond-big-card__header h1, .bond-big-card__header h2 {
+        font-size: 16px;
+    }
+}
+
+
 
 /* === Screener: подмена "легенды" (заголовков) таблицы только CSS === */
 .screener__table-wrapper-2 #screenerTable thead.table-header th > div{
