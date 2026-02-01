@@ -150,6 +150,32 @@
     }
 }
 
+
+/* общий цвет линии можешь привязать к своей переменной */
+#screenerTable tbody tr{
+    position: relative;
+}
+
+#screenerTable tbody tr::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--table-line, #eff2f6;
+    pointer-events: none;
+}
+
+/* опционально: не рисовать линию у последней строки */
+#screenerTable tbody tr:last-child::after{
+    content: none;
+}
+
+#screenerTable td > div{
+    border-bottom: 0 !important;
+}
+
 /* ==== Правим цвет описания эмитента ==== */
 
 .issuer-desc p {
