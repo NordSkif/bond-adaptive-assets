@@ -167,11 +167,6 @@
     pointer-events: none;
 }
 
-/* опционально: не рисовать линию у последней строки */
-#screenerTable tbody tr:last-child::after{
-    content: none;
-}
-
 #screenerTable td > div{
     border-bottom: 0 !important;
 }
