@@ -42,6 +42,15 @@
 }
 
 
+
+
+
+@media only screen and (max-width: 768px) {
+    .screener__table-wrapper screener__table-wrapper-2 is-mobile {
+        overflow: hidden;
+    }
+}
+
 @media only screen and (max-width: 560px) {
     .bond-big-card__header h1{
         margin: auto 0px;
@@ -117,11 +126,23 @@
 
 @media only screen and (max-width: 768px) {
     #screener_results_wrap h2 {
-        margin-left: 10px !important;
-        margin-top: 16px !important;
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+    .screener__table-wrapper screener__table-wrapper-2 is-mobile {
+        overflow: hidden;
     }
 }
 
+@media only screen and (max-width: 560px) {
+    #screener_results_wrap h2 {
+        margin-left: 10px;
+        margin-top: 16px;
+    }
+    .screener__table-wrapper screener__table-wrapper-2 is-mobile {
+        overflow: hidden;
+    }
+}
 
 /* ==== Правим цвет описания эмитента ==== */
 
