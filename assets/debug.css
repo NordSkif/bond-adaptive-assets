@@ -351,6 +351,10 @@
 
 /* === Выравниваем таблицу на странице облигации и приводим стили к макету  === */
 
+.bond-payments table {
+    display: table;
+}
+
 @media (max-width: 768px) {
     .bond-payments table {
         margin-left: 0px;
