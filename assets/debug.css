@@ -679,3 +679,8 @@ section.bond span.tooltip {
     margin-left: 5px;
     position: absolute;
 }
+
+.bond-big-card__header span.tooltip {
+    margin-left: 5px;
+    position: relative;
+}
