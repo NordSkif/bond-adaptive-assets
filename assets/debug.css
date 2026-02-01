@@ -681,3 +681,7 @@ body.site #root > section.bond.with-tooltips span.tooltip{
     margin-left: 5px;
 }
 
+section.bond span.tooltip {
+    margin-left: 5px;
+    position: absolute;
+}
