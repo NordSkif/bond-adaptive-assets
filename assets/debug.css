@@ -257,7 +257,7 @@
         font-size: 14px;
     }
     .bond-payments table tbody tr td {
-        font-size: 14px;
+        font-size: 14px !important;
     }
 }
 
