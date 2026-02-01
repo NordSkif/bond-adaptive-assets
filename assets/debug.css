@@ -364,6 +364,10 @@
     .bond-table table tr {
         padding-left: 0; !important;
     }
+    .bond-payments tbody td:nth-child(2) {
+        font-size: 14px;
+        color: rgba(100, 115, 131, 1);
+    }
 }
 
 
@@ -387,6 +391,8 @@
         font-size: 14px;
     }
 }
+
+
 
 /* === СКРЫТИЕ БОЛЬШЕ 20 СТРОК + JS  === */
 
