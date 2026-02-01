@@ -115,6 +115,13 @@
     }
 }
 
+@media only screen and (max-width: 768px) {
+    .screener bond issuer-tables start-content h2 {
+        margin-left: 10px;
+    }
+}
+
+
 /* ==== Правим цвет описания эмитента ==== */
 
 .issuer-desc p {
@@ -299,22 +306,4 @@
     }
 }
 
-/* 1) Убираем flex ТОЛЬКО у тех <p>, где есть tooltip (иначе иконка будет отдельным flex-item) */
-section.bond td:first-child p:has(> span.tooltip){
-    display:block !important;      /* вместо flex */
-}
 
-/* 2) Значок всегда inline и не живёт своей жизнью */
-section.bond td:first-child span.tooltip{
-    display:inline-flex !important;
-    vertical-align:middle;
-    margin-left:6px;              /* вместо пробела */
-    flex:none;
-}
-
-/* 3) tooltip-content не должен участвовать в переносах строки */
-section.bond td:first-child span.tooltip-content{
-    position:fixed;               /* у тебя left/top в inline-style -> им нужен fixed */
-    z-index:9999;
-    max-width:min(360px, calc(100vw - 24px));
-}
