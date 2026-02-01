@@ -422,3 +422,45 @@
     text-decoration: none;
     opacity: 1;
 }
+
+/* === логика на странице облигации как в макете  === */
+
+@media (max-width: 576px) {
+
+    /* строка: лейбл + значение в одну линию, с переносом только при нехватке места */
+    .bond-info__item table tbody tr{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 6px 12px; /* row-gap / column-gap */
+    }
+
+    /* убираем принудительное 100% у ячеек */
+    .bond-info__item table tbody tr td{
+        width: auto;
+        padding: 0;       /* по желанию, если нужно компактнее */
+        min-width: 0;     /* важно для корректного wrap в flex */
+    }
+
+    /* лейбл занимает остаток */
+    .bond-info__item table tbody tr td:first-child{
+        flex: 1 1 60%;
+    }
+
+    /* значение прижимается вправо и при необходимости падает на новую строку */
+    .bond-info__item table tbody tr td:last-child{
+        flex: 0 1 auto;
+        margin-left: auto;
+        text-align: right;
+        max-width: 100%;
+    }
+
+    /* значение не делаем блочным на всю ширину (иначе опять будет “вторая строка всегда”) */
+    .bond-info__item .val{
+        display: inline-block;
+        width: auto;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}
