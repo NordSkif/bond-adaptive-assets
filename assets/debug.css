@@ -633,3 +633,15 @@
     }
 }
 
+/* Выравнивание картинки "к верху" */
+
+@media (max-width: 768px) {
+
+    .bond-big-card__img img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+}
+
+
+
