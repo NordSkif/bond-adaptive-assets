@@ -349,7 +349,7 @@
     margin: 0 !important;
 }
 
-/* === Выравниваем таблицу на странице облигации  === */
+/* === Выравниваем таблицу на странице облигации и приводим стили к макету  === */
 
 @media (max-width: 768px) {
     .bond-payments table {
@@ -367,3 +367,23 @@
 }
 
 
+@media (max-width: 768px) {
+    .bond-payments tbody td {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .bond-payments tbody td {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 378px) {
+    .bond-payments table thead th {
+        font-size: 14px;
+    }
+    .bond-payments tbody td {
+        font-size: 14px;
+    }
+}
