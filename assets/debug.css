@@ -41,10 +41,6 @@
     }
 }
 
-
-
-
-
 @media only screen and (max-width: 768px) {
     .screener__table-wrapper screener__table-wrapper-2 is-mobile {
         overflow: hidden;
@@ -56,9 +52,6 @@
         margin: auto 0px;
     }
 }
-
-
-
 
 @media only screen and (max-width: 768px) {
     .issuer-desc p {
@@ -75,7 +68,7 @@
     flex-direction: row-reverse;
 }
 
-/* ==== Смена иконки в мобильных версиях странициы эмитента ==== */
+/* ==== Смена иконки в мобильных версиях странициы эмитента
 
 @media only screen and (max-width: 768px) {
 #screener_results_wrap .tooltip.action-tooltip {
@@ -95,7 +88,7 @@
     margin-bottom: -35px;
     opacity: 1;
 }
-}
+} ==== */
 
 /* ====  Шрифт рейтинга как в макете ==== */
 
