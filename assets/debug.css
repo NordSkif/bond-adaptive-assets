@@ -256,6 +256,9 @@
     .bond-info__item p {
         font-size: 14px;
     }
+    .bond-payments table tbody tr td {
+        font-size: 14px;
+    }
 }
 
 
