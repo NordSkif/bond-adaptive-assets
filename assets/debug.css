@@ -145,7 +145,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .screener .rows-count-visible {
+    .screener .rows-count-text {
         display: none !important;
     }
 }
@@ -161,7 +161,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -1px;
     height: 1px;
     background: #eff2f6;
     pointer-events: none;
