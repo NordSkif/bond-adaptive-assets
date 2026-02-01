@@ -176,10 +176,16 @@
     border-bottom: 0 !important;
 }
 
-/* ==== Правим цвет описания эмитента ==== */
+/* ==== Правим цвет описания эмитента и шрифт ==== */
 
 .issuer-desc p {
     color: rgba(55, 63, 72, 1);
+}
+
+@media only screen and (max-width: 460px) {
+    .issuer-desc p {
+        font-size: 16px;
+    }
 }
 
 /* ==== Правим выравнивание в блоке "кредитные рейтинги" ==== */
