@@ -369,6 +369,7 @@
     gap: 0.35em;
     flex-wrap: nowrap;
     white-space: nowrap;
+    justify-content: flex-end;
 }
 
 /* Убираем стандартные отступы у <p> */
