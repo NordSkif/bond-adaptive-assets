@@ -72,7 +72,7 @@
 
 @media only screen and (max-width: 768px) {
     body.site #root > main.content.with-tooltips > section.bond.with-tooltips
-    .screener__table-wrapper.is-mobile .screener__table-wrapper-2 #screenerTable tbody td.title .icons
+    .screener__table-wrapper-2 #screenerTable tbody td.title .icons
     span.tooltip.action-tooltip.tooltip-plus {
     display: flex;
     align-items: center;
