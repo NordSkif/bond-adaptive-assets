@@ -50,6 +50,7 @@
 @media only screen and (max-width: 560px) {
     .bond-big-card__header h1{
         margin: auto 0px;
+        text-wrap: balance;
     }
 }
 
