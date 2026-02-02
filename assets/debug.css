@@ -844,7 +844,12 @@ article.screener.start-content:not(.bond):not(.issuer-tables)
 /* правка скринера чтобы содержимое не “закрашивало” скругления */
 
 /* Только bond-страница: body.site.signed-in > #root > main.content.with-tooltips > section.bond.with-tooltips */
-body.site.signed-in #root > main.content.with-tooltips > section.bond.with-tooltips span.tooltip{
+body.site.signed-in #root > main.content.with-tooltips > section.bond.with-tooltips span.tooltip {
+    position: relative;
+    margin-left: 0px;
+}
+
+body.site #root > main.content.with-tooltips > section.bond.with-tooltips span.tooltip {
     position: relative;
     margin-left: 0px;
 }
