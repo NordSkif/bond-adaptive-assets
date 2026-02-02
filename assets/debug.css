@@ -842,6 +842,7 @@ article.screener.start-content:not(.bond):not(.issuer-tables)
 /* Только bond-страница: body.site.signed-in > #root > main.content.with-tooltips > section.bond.with-tooltips */
 body.site.signed-in #root > main.content.with-tooltips > section.bond.with-tooltips span.tooltip{
     position: relative;
+    margin-left: 0px;
 }
 
 
