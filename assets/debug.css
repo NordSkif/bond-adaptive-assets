@@ -854,5 +854,27 @@ body.site #root > main.content.with-tooltips > section.bond.with-tooltips span.t
     margin-left: 0px;
 }
 
+/* Футерное меню: на тач-устройствах всегда в колонку (не зависит от px-ширины) */
+@media (hover: none) and (pointer: coarse) {
+    footer.footer > nav.nav-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        flex-wrap: nowrap !important;
+        gap: 20px !important;
+    }
+
+    footer.footer > nav.nav-menu > a,
+    footer.footer > nav.nav-menu > span {
+        display: block;
+        width: 100%;
+    }
+
+    /* чтобы пункт с телеграмом не уезжал вправо из-за margin-left:33px */
+    footer.footer > nav.nav-menu > .nav-menu__tg {
+        margin-left: 0 !important;
+    }
+}
+
 
 
