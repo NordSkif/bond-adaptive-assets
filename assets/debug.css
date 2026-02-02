@@ -690,3 +690,37 @@ section.bond span.tooltip {
     margin-left: 5px;
     position: relative;
 }
+
+/* KILL: превращение .view-all в фуллскрин-попап на мобилке */
+@media (max-width: 767px) {
+    .screener__filters-row.view-all {
+        position: relative;   /* вместо fixed */
+        inset: auto;
+        z-index: 1;
+        padding: 0;
+        background: transparent;
+        overflow: visible;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 24px;
+    }
+
+    /* если в разметке реально есть эти блоки — убираем "карточку" попапа */
+    .screener__filters-row.view-all .filters-header {
+        display: none;
+    }
+    .screener__filters-row.view-all .filters-body,
+    .screener__filters-row.view-all .filters-footer {
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        max-height: none;
+        overflow: visible;
+        border-radius: 0;
+    }
+
+    .screener__filters-row.view-all .filters-popup__close {
+        display: none !important;
+    }
+}
