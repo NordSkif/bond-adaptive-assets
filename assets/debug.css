@@ -735,6 +735,15 @@ body.site
     display: none !important;
 }
 
+/* Только страница "Скринер" (/screener) */
+body.site
+#root > main.content.with-tooltips
+> article.screener.start-content:not(.bond):not(.issuer-tables)
+> div.screener__table-wrapper
+div.table-more-wrap{
+    display: none !important;
+}
+
 /* КОНТРОЛЬ СТИЛЕЙ В ТАБЛИЦЕ ВЫПЛАТ ОБЛИГАЦИЙ  */
 
 @media (max-width: 768px) {
