@@ -823,6 +823,9 @@ article.screener.start-content:not(.bond):not(.issuer-tables)
         font-family: Mulish;
         font-weight: 400;
         font-size: 14px;
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: normal;
     }
 
     .bond-payments tbody td:nth-child(3) {
