@@ -71,7 +71,7 @@
 /* ==== Смена иконки в мобильных версиях странициы эмитента ==== */
 
 @media only screen and (max-width: 768px) {
-body.site #root > section.bond.with-tooltips span.tooltip.action-tooltip.tooltip-plus {
+body.site #root > section.bond span.tooltip.action-tooltip.tooltip-plus {
     display: flex;
     align-items: center;
     justify-content: center;
