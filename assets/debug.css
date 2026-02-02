@@ -738,135 +738,95 @@ body.site
 /* КОНТРОЛЬ СТИЛЕЙ В ТАБЛИЦЕ ВЫПЛАТ ОБЛИГАЦИЙ  */
 
 @media (max-width: 768px) {
-    .bond-payments table thead th:nth-child(3), .bond-payments table thead th:nth-child(4), .bond-payments table thead th:nth-child(5), .bond-payments table thead th:nth-child(6) {
+    .bond-payments table thead th:nth-child(3),
+    .bond-payments table thead th:nth-child(4),
+    .bond-payments table thead th:nth-child(5),
+    .bond-payments table thead th:nth-child(6) {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 16px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
         color: rgba(100, 115, 131, 1);
     }
+
     .bond-payments tbody td:nth-child(3) {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 16px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-payments tbody td:nth-child(2) {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 14px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
         color: rgba(100, 115, 131, 1);
     }
 }
 
 @media (max-width: 576px) {
-    .bond-payments table thead th:nth-child(3), .bond-payments table thead th:nth-child(4), .bond-payments table thead th:nth-child(5), .bond-payments table thead th:nth-child(6) {
+    .bond-payments table thead th:nth-child(3),
+    .bond-payments table thead th:nth-child(4),
+    .bond-payments table thead th:nth-child(5),
+    .bond-payments table thead th:nth-child(6) {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 16px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-payments tbody td:nth-child(3) {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 16px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-payments tbody td:nth-child(2) {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 14px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
 }
 
 @media (max-width: 450px) {
-    .bond-payments table thead th:nth-child(3), .bond-payments table thead th:nth-child(4), .bond-payments table thead th:nth-child(5), .bond-payments table thead th:nth-child(6) {
+    .bond-payments table thead th:nth-child(3),
+    .bond-payments table thead th:nth-child(4),
+    .bond-payments table thead th:nth-child(5),
+    .bond-payments table thead th:nth-child(6) {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 16px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-payments tbody td:nth-child(3) {
         font-family: Mulish;
         font-weight: 700;
-        font-style: Bold;
         font-size: 16px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
+
     .bond-payments tbody td:nth-child(2) {
         font-family: Mulish;
         font-weight: 400;
-        font-style: Regular;
         font-size: 14px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: -1.5%;
-        vertical-align: middle;
     }
 }
 
-media (max-width: 450px) {
-.bond-payments table thead th:nth-child(3), .bond-payments table thead th:nth-child(4), .bond-payments table thead th:nth-child(5), .bond-payments table thead th:nth-child(6) {
-    font-family: Mulish;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 14px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: -1.5%;
-    vertical-align: middle;
-}
-.bond-payments tbody td:nth-child(3) {
-    font-family: Mulish;
-    font-weight: 700;
-    font-style: Bold;
-    font-size: 16px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: -1.5%;
-    vertical-align: middle;
-}
-.bond-payments tbody td:nth-child(2) {
-    font-family: Mulish;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 14px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: -1.5%;
-    vertical-align: middle;
-}
+@media (max-width: 450px) {
+    .bond-payments table thead th:nth-child(3),
+    .bond-payments table thead th:nth-child(4),
+    .bond-payments table thead th:nth-child(5),
+    .bond-payments table thead th:nth-child(6) {
+        font-family: Mulish;
+        font-weight: 400;
+        font-size: 14px;
+    }
+
+    .bond-payments tbody td:nth-child(3) {
+        font-family: Mulish;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .bond-payments tbody td:nth-child(2) {
+        font-family: Mulish;
+        font-weight: 400;
+        font-size: 14px;
+    }
 }
