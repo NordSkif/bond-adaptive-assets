@@ -839,20 +839,6 @@ article.screener.start-content:not(.bond):not(.issuer-tables)
 
 /* правка скринера чтобы содержимое не “закрашивало” скругления */
 
-@media (max-width: 768px) {
-    body.site #root > main.content.with-tooltips > article.screener.start-content
-    #screener_results_wrap > .screener__table-wrapper{
-        background: #fff;
-        border: 1px solid #3ab54a33;
-        border-radius: 24px;
 
-        /* чтобы содержимое не “закрашивало” скругления */
-        overflow: hidden;
-        overflow-x: auto;
-
-        /* можно вернуть немного воздуха снизу, чтобы кнопка не прилипала */
-        padding: 12px;
-    }
-}
 
 
