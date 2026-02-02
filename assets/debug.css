@@ -727,20 +727,17 @@ section.bond span.tooltip {
 
 /* УБИРАЕМ ПОКАЗАТЬ ЕЩЁ В СКРИНЕРЕ  */
 
-body.site
-#root > main.content.with-tooltips
-> article.screener.start-content:not(.bond):not(.issuer-tables)
-> div.screener__table-wrapper
+/* Только страница "Скринер" (article без .bond и .issuer-tables) */
+body.site #root main.content.with-tooltips
+article.screener.start-content:not(.bond):not(.issuer-tables)
+#screener_results_wrap > div.screener__table-wrapper
 > table#screenerTable + div.table-more-wrap{
     display: none !important;
 }
 
-/* Только страница "Скринер" (/screener) */
-body.site
-#root > main.content.with-tooltips
-> article.screener.start-content:not(.bond):not(.issuer-tables)
-> div.screener__table-wrapper
-div.table-more-wrap{
+body.site #root main.content.with-tooltips
+article.screener.start-content:not(.bond):not(.issuer-tables)
+#screener_results_wrap div.table-more-wrap{
     display: none !important;
 }
 
