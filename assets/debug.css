@@ -68,10 +68,10 @@
     flex-direction: row-reverse;
 }
 
-/* ==== Смена иконки в мобильных версиях странициы эмитента
+/* ==== Смена иконки в мобильных версиях странициы эмитента ==== */
 
 @media only screen and (max-width: 768px) {
-#screener_results_wrap .tooltip.action-tooltip {
+body.site #root > section.bond.with-tooltips span.tooltip.action-tooltip.tooltip-plus {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,7 +88,7 @@
     margin-bottom: -35px;
     opacity: 1;
 }
-} ==== */
+}
 
 /* ====  Отступы в скринере  ==== */
 
