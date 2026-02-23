@@ -289,189 +289,164 @@
     scanAndFix();
 })();
 
+/* --- CorpBonds: FIX "Показать все" в issuer-history на мобиле (portrait <=576px)
+   Причина: adaptive.css скрывает строки через display:none!important (nth-child(n+4...)),
+   из-за чего штатный expand-скрипт не может корректно управлять количеством строк.
+   Решение: на <=576px управляем видимостью строк сами и перебиваем adaptive.css через inline display !important,
+   но при этом сохраняем "родной" display строк (grid/table-row и т.п.), чтобы не ломать верстку.
+--- */
+(() => {
+    const MQ = window.matchMedia ? window.matchMedia('(max-width: 576px)') : { matches: false };
+    const ART_SEL = 'article.bond-table.issuer-history';
+    const TBODY_SEL = 'tbody[data-tabs-target="events"]';
+    const EXPAND_SEL = 'a[data-expand="events"]';
+    const TAB_BTN_SEL = '.tabs[data-tabs="events"] [data-tab]';
 
-/* === Mobile fix: issuer-history "Показать все / Свернуть" (data-expand) ===
-   На <=576px в adaptive.css есть правило, которое всегда скрывает строки начиная с 4-й:
-   tr:nth-child(n+4 ...) { display:none !important; }
-   Из-за !important штатный JS не может показать все строки в портретной ориентации.
-   Здесь мы на мобиле перехватываем клик и принудительно выставляем inline display с !important. */
-(function () {
-    'use strict';
-
-    var MOBILE_MAX = 576;
-
-    function isMobile() {
-        return window.matchMedia && window.matchMedia('(max-width: ' + MOBILE_MAX + 'px)').matches;
+    function getActiveTab(article) {
+        const active = article.querySelector('.tabs[data-tabs="events"] [data-tab].active');
+        return (active && active.getAttribute('data-tab')) || 'past';
     }
 
-    function asInt(v, fallback) {
-        var n = parseInt(v, 10);
-        return isFinite(n) ? n : fallback;
+    function ensureSaved(tr) {
+        if (tr.dataset.cbDispSaved === '1') return;
+        tr.dataset.cbDispSaved = '1';
+        tr.dataset.cbDispVal = tr.style.getPropertyValue('display') || '';
+        tr.dataset.cbDispPrio = tr.style.getPropertyPriority('display') || '';
     }
 
-    function getDisplayToShow(tr) {
-        // Для table rows корректнее всего table-row
-        if (tr && tr.closest && tr.closest('table')) return 'table-row';
-        return 'block';
+    function setDisplayImportant(tr, value) {
+        ensureSaved(tr);
+        tr.style.setProperty('display', value, 'important');
     }
 
-    function savePrevDisplay(tr) {
-        if (!tr || tr.dataset.cbPrevDisplaySaved === '1') return;
-        tr.dataset.cbPrevDisplaySaved = '1';
-        tr.dataset.cbPrevDisplayValue = tr.style.getPropertyValue('display') || '';
-        tr.dataset.cbPrevDisplayPriority = tr.style.getPropertyPriority('display') || '';
+    function restoreDisplay(tr) {
+        if (tr.dataset.cbDispSaved !== '1') return;
+        const val = tr.dataset.cbDispVal || '';
+        const pr = tr.dataset.cbDispPrio || '';
+        if (!val) tr.style.removeProperty('display');
+        else tr.style.setProperty('display', val, pr);
+
+        delete tr.dataset.cbDispSaved;
+        delete tr.dataset.cbDispVal;
+        delete tr.dataset.cbDispPrio;
     }
 
-    function restorePrevDisplay(tr) {
-        if (!tr || tr.dataset.cbPrevDisplaySaved !== '1') return;
-
-        var prevVal = tr.dataset.cbPrevDisplayValue || '';
-        var prevPr = tr.dataset.cbPrevDisplayPriority || '';
-
-        if (prevVal) {
-            tr.style.setProperty('display', prevVal, prevPr);
-        } else {
-            tr.style.removeProperty('display');
-        }
-
-        delete tr.dataset.cbPrevDisplaySaved;
-        delete tr.dataset.cbPrevDisplayValue;
-        delete tr.dataset.cbPrevDisplayPriority;
+    function restoreAll(article) {
+        const tbody = article.querySelector(TBODY_SEL);
+        if (!tbody) return;
+        tbody.querySelectorAll('tr[data-cb-disp-saved="1"]').forEach(restoreDisplay);
     }
 
-    function setBtnText(link, expanded) {
-        var span = link.querySelector('.button-text');
-        var t1 = span && span.dataset && span.dataset.text1 ? span.dataset.text1 : null;
-        var t2 = span && span.dataset && span.dataset.text2 ? span.dataset.text2 : null;
+    function getNativeRowDisplay(article, activeTab) {
+        const tbody = article.querySelector(TBODY_SEL);
+        if (!tbody) return 'table-row';
 
-        if (span) {
-            span.textContent = expanded ? (t2 || 'Свернуть') : (t1 || 'Показать все');
-        } else {
-            link.textContent = expanded ? (t2 || 'Свернуть') : (t1 || 'Показать все');
-        }
+        // берем ПЕРВУЮ строку активного таба, которая не скрыта табами.
+        const first = Array.from(tbody.querySelectorAll(`tr[data-on-tab="${activeTab}"]`))
+            .find((tr) => tr.style.getPropertyValue('display') !== 'none');
 
-        link.classList.toggle('expanded', expanded);
-        link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        if (!first) return 'table-row';
+
+        // временно убираем inline display (наш или чужой), чтобы увидеть реальный computed display
+        const prevVal = first.style.getPropertyValue('display');
+        const prevPr  = first.style.getPropertyPriority('display');
+        first.style.removeProperty('display');
+
+        const disp = getComputedStyle(first).display;
+
+        // восстанавливаем
+        if (prevVal) first.style.setProperty('display', prevVal, prevPr);
+
+        if (!disp || disp === 'none') return 'table-row';
+        return disp;
     }
 
-    function applyExpand(link) {
-        if (!link) return;
+    function isExpanded(expand) {
+        // у них это класс + иногда aria-expanded
+        return expand.classList.contains('expanded') || expand.getAttribute('aria-expanded') === 'true';
+    }
 
-        var scope = link.closest('.bond-table.issuer-history');
-        if (!scope) return;
+    function apply(article) {
+        if (!article) return;
 
-        // На десктопе/ландшафте не вмешиваемся и чистим то, что могли поставить на мобиле
-        if (!isMobile()) {
-            var tbodies = scope.querySelectorAll('tbody');
-            tbodies.forEach(function (tbody) {
-                Array.prototype.forEach.call(tbody.querySelectorAll('tr'), restorePrevDisplay);
-            });
+        const tbody = article.querySelector(TBODY_SEL);
+        const expand = article.querySelector(EXPAND_SEL);
+        if (!tbody || !expand) return;
+
+        // На ширине >576px откатываем наши inline-override и отдаем управление штатной логике/верстке
+        if (!MQ.matches) {
+            restoreAll(article);
             return;
         }
 
-        var group = link.dataset.expand || 'events';
-        var startCount = asInt(link.dataset.startVisibleCount, 10);
-        var expanded = link.classList.contains('expanded');
+        const startCount = parseInt(expand.dataset.startVisibleCount || '10', 10) || 10;
+        const activeTab = getActiveTab(article);
 
-        var tbody = scope.querySelector('tbody[data-tabs-target="' + group + '"]') || scope.querySelector('tbody');
-        if (!tbody) return;
+        const rowsAll = Array.from(tbody.querySelectorAll('tr[data-on-tab]'));
+        const rows = rowsAll.filter((tr) => tr.getAttribute('data-on-tab') === activeTab);
 
-        var tabs = scope.querySelector('.tabs[data-tabs="' + group + '"]');
-        var activeTabEl = tabs ? tabs.querySelector('[data-tab].active') : null;
-        var tabName = activeTabEl ? activeTabEl.getAttribute('data-tab') : null;
+        // если строк мало - просто покажем все и спрячем кнопку (если она есть)
+        const expanded = isExpanded(expand);
+        const nativeDisp = getNativeRowDisplay(article, activeTab);
 
-        var allRows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
-        var hasTabs = !!(tabName && allRows.some(function (tr) { return tr.hasAttribute('data-on-tab'); }));
-
-        var activeRows = hasTabs
-            ? allRows.filter(function (tr) { return tr.getAttribute('data-on-tab') === tabName; })
-            : allRows;
-
-        // 1) Инактивные табы прячем (важно, если ранее мы ставили inline !important)
-        if (hasTabs) {
-            allRows.forEach(function (tr) {
-                var onTab = tr.getAttribute('data-on-tab');
-                if (onTab && onTab !== tabName) {
-                    savePrevDisplay(tr);
-                    tr.style.setProperty('display', 'none', 'important');
-                }
-            });
-        }
-
-        // 2) Активный таб: expanded => показать все; collapsed => только первые startCount
-        var showDisp = activeRows.length ? getDisplayToShow(activeRows[0]) : 'table-row';
-
-        activeRows.forEach(function (tr, idx) {
-            savePrevDisplay(tr);
-
+        rows.forEach((tr, idx) => {
             if (expanded) {
-                tr.style.setProperty('display', showDisp, 'important');
-            } else {
-                if (idx < startCount) tr.style.setProperty('display', showDisp, 'important');
-                else tr.style.setProperty('display', 'none', 'important');
+                setDisplayImportant(tr, nativeDisp);
+                return;
             }
+
+            if (idx < startCount) setDisplayImportant(tr, nativeDisp);
+            else setDisplayImportant(tr, 'none');
         });
 
-        setBtnText(link, expanded);
+        // неактивные табы не трогаем (но если мы их трогали раньше — восстановим)
+        rowsAll.forEach((tr) => {
+            const tab = tr.getAttribute('data-on-tab') || '';
+            if (tab !== activeTab) restoreDisplay(tr);
+        });
     }
 
-    function init() {
-        var links = Array.prototype.slice.call(document.querySelectorAll('.bond-table.issuer-history a[data-expand]'));
-        if (!links.length) return;
+    function scanAndApply() {
+        document.querySelectorAll(ART_SEL).forEach(apply);
+    }
 
-        links.forEach(function (link) {
-            if (link.dataset.cbExpandInited === '1') return;
-            link.dataset.cbExpandInited = '1';
-
-            // синхронизируем текст по текущему состоянию (класс expanded может быть проставлен сервером)
-            applyExpand(link);
-
-            // Перехватываем клик НА МОБИЛЕ, чтобы !important из adaptive.css не ломал поведение
-            link.addEventListener('click', function (e) {
-                if (!isMobile()) return; // на ширине >576 пусть работает штатный код
-
-                e.preventDefault();
-                e.stopImmediatePropagation();
-
-                // toggle
-                link.classList.toggle('expanded');
-                applyExpand(link);
-            }, true);
-
-            // При клике по табам просто пере-применяем после штатной логики (без stop)
-            var scope = link.closest('.bond-table.issuer-history');
-            var group = link.dataset.expand || 'events';
-            var tabs = scope ? scope.querySelector('.tabs[data-tabs="' + group + '"]') : null;
-
-            if (tabs) {
-                tabs.addEventListener('click', function (e) {
-                    if (!isMobile()) return;
-                    var tabBtn = e.target && e.target.closest ? e.target.closest('[data-tab]') : null;
-                    if (!tabBtn) return;
-                    // Даем штатному обработчику переключить .active и inline display
-                    setTimeout(function () { applyExpand(link); }, 0);
-                }, true);
-            }
-        });
-
-        // Реагируем на повороты/resize: на десктопе чистим inline !important, на мобиле применяем
-        var raf = 0;
-        function onResize() {
-            if (raf) cancelAnimationFrame(raf);
-            raf = requestAnimationFrame(function () {
-                raf = 0;
-                links.forEach(applyExpand);
-            });
+    // клики по expand и табам — применяем после штатной логики (1-2 RAF, чтобы дать отработать табам)
+    document.addEventListener('click', (e) => {
+        const expand = e.target.closest?.(EXPAND_SEL);
+        if (expand) {
+            const art = expand.closest?.(ART_SEL);
+            if (art) requestAnimationFrame(() => requestAnimationFrame(() => apply(art)));
+            return;
         }
 
-        window.addEventListener('resize', onResize, { passive: true });
-        window.addEventListener('orientationchange', onResize, { passive: true });
-    }
+        const tabBtn = e.target.closest?.(TAB_BTN_SEL);
+        if (tabBtn) {
+            const art = tabBtn.closest?.(ART_SEL);
+            if (art) requestAnimationFrame(() => requestAnimationFrame(() => apply(art)));
+        }
+    }, { passive: true });
+
+    // ресайз/поворот — пересчитать/откатить
+    window.addEventListener('resize', scanAndApply, { passive: true });
+    window.addEventListener('orientationchange', scanAndApply, { passive: true });
+
+    // matchMedia change
+    try {
+        if (MQ && typeof MQ.addEventListener === 'function') MQ.addEventListener('change', scanAndApply);
+        else if (MQ && typeof MQ.addListener === 'function') MQ.addListener(scanAndApply);
+    } catch (e) {}
+
+    // старт: после DOMContentLoaded и еще раз после полной отрисовки (часто табы инициализируются позже)
+    const boot = () => {
+        scanAndApply();
+        setTimeout(scanAndApply, 0);
+        setTimeout(scanAndApply, 50);
+    };
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', boot, { passive: true });
     } else {
-        init();
+        boot();
     }
 })();
 
