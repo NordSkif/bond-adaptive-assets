@@ -281,3 +281,68 @@
         _place(trigger, tip);
     };
 })();
+
+
+(() => {
+    const PAD = 12;
+
+    function viewportWidth() {
+        return window.visualViewport ? window.visualViewport.width : window.innerWidth;
+    }
+
+    function fixTip(tip) {
+        if (!tip || tip.nodeType !== 1) return;
+
+        // фикс только когда реально показан
+        const cs = getComputedStyle(tip);
+        if (cs.visibility !== 'visible' || cs.display === 'none') return;
+
+        const r = tip.getBoundingClientRect();
+        const vw = viewportWidth();
+
+        let dx = 0;
+        if (r.left < PAD) dx += (PAD - r.left);
+        if (r.right > vw - PAD) dx -= (r.right - (vw - PAD));
+
+        // запоминаем исходный inline transform и добавляем сдвиг
+        if (!tip.dataset.baseTransform) tip.dataset.baseTransform = tip.style.transform || '';
+
+        if (dx !== 0) {
+            tip.style.transform = `${tip.dataset.baseTransform} translateX(${Math.round(dx)}px)`.trim();
+        } else {
+            tip.style.transform = tip.dataset.baseTransform;
+            delete tip.dataset.baseTransform;
+        }
+    }
+
+    function scanAndFix(root = document) {
+        root.querySelectorAll('.tooltip-content').forEach(fixTip);
+    }
+
+    // ловим любые изменения стилей/классов и появление новых тултипов
+    const mo = new MutationObserver((muts) => {
+        for (const m of muts) {
+            if (m.type === 'attributes') fixTip(m.target);
+            if (m.type === 'childList') {
+                m.addedNodes.forEach((n) => {
+                    if (n.nodeType === 1) {
+                        if (n.matches?.('.tooltip-content')) fixTip(n);
+                        else scanAndFix(n);
+                    }
+                });
+            }
+        }
+    });
+
+    mo.observe(document.documentElement, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
+
+    window.addEventListener('resize', () => scanAndFix(), { passive: true });
+    window.addEventListener('scroll', () => scanAndFix(), { passive: true });
+
+    scanAndFix();
+})();
