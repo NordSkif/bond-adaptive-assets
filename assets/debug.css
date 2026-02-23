@@ -876,5 +876,12 @@ body.site #root > main.content.with-tooltips > section.bond.with-tooltips span.t
     }
 }
 
+.tooltip-content{
+    box-sizing: border-box;
+    max-width: min(320px, calc(100vw - 24px));
+    white-space: normal;
+    overflow-wrap: anywhere;
+    z-index: 9999;
+}
 
 

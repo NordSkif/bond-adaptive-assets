@@ -137,3 +137,63 @@
     style.textContent = css;
     document.head.appendChild(style);
 })();
+
+function placeTooltip(triggerEl, tooltipEl, opts = {}) {
+    const gap = opts.gap ?? 8;
+    const padding = opts.padding ?? 12;
+
+    // делаем измеряемым
+    const prevVis = tooltipEl.style.visibility;
+    const prevDisp = tooltipEl.style.display;
+
+    tooltipEl.style.position = 'fixed';
+    tooltipEl.style.visibility = 'hidden';
+    tooltipEl.style.display = 'block';
+    tooltipEl.style.left = '0px';
+    tooltipEl.style.top = '0px';
+
+    const tipW = tooltipEl.offsetWidth;
+    const tipH = tooltipEl.offsetHeight;
+    const tr = triggerEl.getBoundingClientRect();
+
+    // базово: по центру иконки
+    let left = tr.left + tr.width / 2 - tipW / 2;
+    left = Math.max(padding, Math.min(left, window.innerWidth - tipW - padding));
+
+    // базово: снизу
+    let top = tr.bottom + gap;
+
+    // если не влезает снизу - ставим сверху
+    if (top + tipH > window.innerHeight - padding) {
+        top = tr.top - gap - tipH;
+    }
+    top = Math.max(padding, Math.min(top, window.innerHeight - tipH - padding));
+
+    tooltipEl.style.left = `${Math.round(left)}px`;
+    tooltipEl.style.top = `${Math.round(top)}px`;
+    tooltipEl.style.visibility = prevVis || 'visible';
+    tooltipEl.style.display = prevDisp || 'block';
+}
+
+// пример хука на показ
+function showTooltip(triggerEl) {
+    const tip = triggerEl.querySelector('.tooltip-content') || document.querySelector('.tooltip-content');
+    if (!tip) return;
+    tip.style.visibility = 'visible';
+    placeTooltip(triggerEl, tip);
+}
+
+// полезно пере-позиционировать на resize/scroll
+window.addEventListener('resize', () => {
+    document.querySelectorAll('.tooltip-content[style*="visibility: visible"]').forEach(tip => {
+        const trigger = tip.closest('[data-tooltip-trigger]') || tip.parentElement;
+        if (trigger) placeTooltip(trigger, tip);
+    });
+}, { passive: true });
+
+window.addEventListener('scroll', () => {
+    document.querySelectorAll('.tooltip-content[style*="visibility: visible"]').forEach(tip => {
+        const trigger = tip.closest('[data-tooltip-trigger]') || tip.parentElement;
+        if (trigger) placeTooltip(trigger, tip);
+    });
+}, { passive: true });
