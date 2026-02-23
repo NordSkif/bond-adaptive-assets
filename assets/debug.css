@@ -876,6 +876,8 @@ body.site #root > main.content.with-tooltips > section.bond.with-tooltips span.t
     }
 }
 
+/* исправление выезжания тултипов и блока "поделится" */
+
 .tooltip-content{
     position: fixed;          /* важно */
     z-index: 9999;
@@ -891,4 +893,23 @@ body.site #root > main.content.with-tooltips > section.bond.with-tooltips span.t
 
 @media (max-width: 480px){
     .share-buttons .ya-share2{ transform: none !important; }
+}
+
+.share-wrap .share-buttons {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    body.site #root main.content.with-tooltips
+    article.screener.start-content:not(.bond):not(.issuer-tables)
+    #screenerTable tbody tr.is-hidden-by-limit {
+        display: grid !important;
+    }
+}
+@media (min-width: 769px) {
+    body.site #root main.content.with-tooltips
+    article.screener.start-content:not(.bond):not(.issuer-tables)
+    #screenerTable tbody tr.is-hidden-by-limit {
+        display: table-row !important;
+    }
 }
