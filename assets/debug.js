@@ -139,7 +139,83 @@
 })();
 
 
+(() => {
+    const PAD = 12; // отступ от края
 
+    const getViewport = () => {
+        const vv = window.visualViewport;
+        return vv
+            ? { w: vv.width, h: vv.height, ox: vv.offsetLeft, oy: vv.offsetTop }
+            : { w: window.innerWidth, h: window.innerHeight, ox: 0, oy: 0 };
+    };
+
+    const clamp = (v, min, max) => Math.max(min, Math.min(v, max));
+
+    function fixYaShare(el) {
+        if (!el || el.nodeType !== 1) return;
+
+        // если блок скрыт, не трогаем
+        const cs = getComputedStyle(el);
+        if (cs.display === "none" || cs.visibility === "hidden") return;
+
+        // 1) "инструментируем" transform ровно один раз
+        // Share2 может переписать transform позже, поэтому проверка по маркеру
+        const t = el.style.transform || "";
+        if (!t.includes("--cb-shift-x")) {
+            const base = (t && t !== "none") ? t + " " : "";
+            el.style.transform = base + "translateX(var(--cb-shift-x, 0px))";
+        }
+
+        // 2) считаем, насколько вылезли за экран
+        // важно: rect после текущего transform
+        const { w: vw, ox } = getViewport();
+        const r = el.getBoundingClientRect();
+
+        let dx = 0;
+        if (r.left < PAD) dx += (PAD - r.left);
+        if (r.right > vw - PAD) dx -= (r.right - (vw - PAD));
+
+        // визуальный viewport offset (на мобиле/зуме бывает не 0)
+        dx += ox;
+
+        el.style.setProperty("--cb-shift-x", `${Math.round(dx)}px`);
+    }
+
+    function scan() {
+        document.querySelectorAll(".share-buttons .ya-share2").forEach(fixYaShare);
+    }
+
+    // ловим моменты, когда Share2 выставляет transform/показывает блок
+    const mo = new MutationObserver((muts) => {
+        for (const m of muts) {
+            if (m.type === "attributes") {
+                const el = m.target;
+                if (el.matches?.(".share-buttons .ya-share2")) fixYaShare(el);
+            } else if (m.type === "childList") {
+                m.addedNodes.forEach((n) => {
+                    if (n.nodeType === 1) {
+                        if (n.matches?.(".share-buttons .ya-share2")) fixYaShare(n);
+                        else n.querySelectorAll?.(".share-buttons .ya-share2").forEach(fixYaShare);
+                    }
+                });
+            }
+        }
+    });
+
+    mo.observe(document.documentElement, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        attributeFilter: ["style", "class"]
+    });
+
+    window.addEventListener("resize", scan, { passive: true });
+    window.addEventListener("scroll", scan, { passive: true });
+    window.visualViewport?.addEventListener("resize", scan, { passive: true });
+    window.visualViewport?.addEventListener("scroll", scan, { passive: true });
+
+    scan();
+})();
 
 
 (() => {
