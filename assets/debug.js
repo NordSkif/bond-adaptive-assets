@@ -18,7 +18,7 @@
 
         table.dataset.limitInited = '1';
 
-        var state = { expanded: false };
+        var state = { expanded: false, forced: false };
 
         // создаем контрол под таблицей
         var wrap = document.createElement('div');
@@ -39,9 +39,50 @@
             return isinRows.length ? isinRows : rows;
         }
 
+
+        function hasMobilePager() {
+            // Если на мобильном включена постраничная пагинация (adaptive.js),
+            // лимитер на N строк конфликтует: скрытые классом строки ломают страницы после 20-й.
+            // Признаки: таблица внутри .screener__table-wrapper и на ней появился .common-pager / класс is-mobile.
+            var wrap = table.closest && table.closest('.screener__table-wrapper');
+            if (!wrap) return false;
+
+            if (wrap.classList && wrap.classList.contains('is-mobile')) return true;
+
+            var hasPager = !!(wrap.querySelector && wrap.querySelector('.common-pager'));
+            if (!hasPager) return false;
+
+            // ширина как в adaptive.js (vw <= 768)
+            if (window.matchMedia) {
+                return window.matchMedia('(max-width: 768px)').matches;
+            }
+
+            var vw = window.innerWidth || document.documentElement.clientWidth || 0;
+            return vw <= 768;
+        }
+
+
         function apply() {
             var rows = getRows();
             var total = rows.length;
+
+            // На мобильном с постраничной пагинацией (adaptive.js) выключаем лимитер полностью,
+            // иначе скрытые по лимиту строки ломают переходы (после 5-й страницы пусто).
+            if (hasMobilePager()) {
+                rows.forEach(function (tr) { tr.classList.remove('is-hidden-by-limit'); });
+                wrap.hidden = true;
+                state.forced = true;
+                state.expanded = true;
+                btn.setAttribute('aria-expanded', 'true');
+                btn.textContent = 'Скрыть';
+                return;
+            }
+
+            // если ранее форсировали expanded для мобильной пагинации, при выходе из неё возвращаем дефолт
+            if (state.forced) {
+                state.forced = false;
+                state.expanded = false;
+            }
 
             if (total <= limit) {
                 rows.forEach(function (tr) { tr.classList.remove('is-hidden-by-limit'); });
