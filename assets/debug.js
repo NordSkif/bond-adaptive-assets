@@ -138,62 +138,146 @@
     document.head.appendChild(style);
 })();
 
-function placeTooltip(triggerEl, tooltipEl, opts = {}) {
-    const gap = opts.gap ?? 8;
-    const padding = opts.padding ?? 12;
 
-    // делаем измеряемым
-    const prevVis = tooltipEl.style.visibility;
-    const prevDisp = tooltipEl.style.display;
 
-    tooltipEl.style.position = 'fixed';
-    tooltipEl.style.visibility = 'hidden';
-    tooltipEl.style.display = 'block';
-    tooltipEl.style.left = '0px';
-    tooltipEl.style.top = '0px';
 
-    const tipW = tooltipEl.offsetWidth;
-    const tipH = tooltipEl.offsetHeight;
-    const tr = triggerEl.getBoundingClientRect();
+(function () {
+    const GAP = 8;
+    const PAD = 12;
 
-    // базово: по центру иконки
-    let left = tr.left + tr.width / 2 - tipW / 2;
-    left = Math.max(padding, Math.min(left, window.innerWidth - tipW - padding));
-
-    // базово: снизу
-    let top = tr.bottom + gap;
-
-    // если не влезает снизу - ставим сверху
-    if (top + tipH > window.innerHeight - padding) {
-        top = tr.top - gap - tipH;
+    function getViewport() {
+        const vv = window.visualViewport;
+        if (vv) {
+            return {
+                w: vv.width,
+                h: vv.height,
+                ox: vv.offsetLeft,
+                oy: vv.offsetTop
+            };
+        }
+        return { w: window.innerWidth, h: window.innerHeight, ox: 0, oy: 0 };
     }
-    top = Math.max(padding, Math.min(top, window.innerHeight - tipH - padding));
 
-    tooltipEl.style.left = `${Math.round(left)}px`;
-    tooltipEl.style.top = `${Math.round(top)}px`;
-    tooltipEl.style.visibility = prevVis || 'visible';
-    tooltipEl.style.display = prevDisp || 'block';
-}
+    function clamp(v, min, max) {
+        return Math.max(min, Math.min(v, max));
+    }
 
-// пример хука на показ
-function showTooltip(triggerEl) {
-    const tip = triggerEl.querySelector('.tooltip-content') || document.querySelector('.tooltip-content');
-    if (!tip) return;
-    tip.style.visibility = 'visible';
-    placeTooltip(triggerEl, tip);
-}
+    function portalToBody(tip) {
+        if (tip.__portaled) return;
 
-// полезно пере-позиционировать на resize/scroll
-window.addEventListener('resize', () => {
-    document.querySelectorAll('.tooltip-content[style*="visibility: visible"]').forEach(tip => {
-        const trigger = tip.closest('[data-tooltip-trigger]') || tip.parentElement;
-        if (trigger) placeTooltip(trigger, tip);
-    });
-}, { passive: true });
+        tip.__origParent = tip.parentNode;
+        tip.__origNext = tip.nextSibling;
+        tip.__portaled = true;
 
-window.addEventListener('scroll', () => {
-    document.querySelectorAll('.tooltip-content[style*="visibility: visible"]').forEach(tip => {
-        const trigger = tip.closest('[data-tooltip-trigger]') || tip.parentElement;
-        if (trigger) placeTooltip(trigger, tip);
-    });
-}, { passive: true });
+        document.body.appendChild(tip);
+    }
+
+    function restoreFromBody(tip) {
+        if (!tip.__portaled) return;
+        const p = tip.__origParent;
+        if (!p) return;
+
+        if (tip.__origNext && tip.__origNext.parentNode === p) {
+            p.insertBefore(tip, tip.__origNext);
+        } else {
+            p.appendChild(tip);
+        }
+
+        tip.__portaled = false;
+    }
+
+    function place(trigger, tip) {
+        portalToBody(tip);
+
+        // делаем измеряемым
+        tip.style.visibility = 'hidden';
+        tip.style.display = 'block';
+        tip.style.left = '0px';
+        tip.style.top = '0px';
+
+        const { w: vw, h: vh, ox, oy } = getViewport();
+        const tr = trigger.getBoundingClientRect();
+
+        const tipW = tip.offsetWidth;
+        const tipH = tip.offsetHeight;
+
+        // центрируем относительно триггера
+        const centerX = tr.left + tr.width / 2;
+
+        let left = centerX - tipW / 2;
+        left = clamp(left, PAD, vw - tipW - PAD);
+
+        // снизу, если не влезает - сверху
+        let top = tr.bottom + GAP;
+        if (top + tipH > vh - PAD) top = tr.top - GAP - tipH;
+        top = clamp(top, PAD, vh - tipH - PAD);
+
+        // с учетом visualViewport offset (важно для мобилы/зум/клавиатура)
+        tip.style.left = `${Math.round(left + ox)}px`;
+        tip.style.top  = `${Math.round(top + oy)}px`;
+
+        tip.style.visibility = 'visible';
+    }
+
+    function hideTip(tip) {
+        tip.style.visibility = 'hidden';
+        tip.style.display = 'none';
+        restoreFromBody(tip);
+    }
+
+    // Привязка: показываем по click (для мобилы логичнее, чем hover)
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('[data-tooltip-trigger]');
+        const opened = document.querySelector('.tooltip-content[data-opened="1"]');
+
+        // клик вне триггера закрывает открытый тултип
+        if (!trigger) {
+            if (opened) {
+                opened.dataset.opened = "0";
+                hideTip(opened);
+            }
+            return;
+        }
+
+        const tip = trigger.querySelector('.tooltip-content');
+        if (!tip) return;
+
+        const isOpen = tip.dataset.opened === "1";
+        if (opened && opened !== tip) {
+            opened.dataset.opened = "0";
+            hideTip(opened);
+        }
+
+        if (isOpen) {
+            tip.dataset.opened = "0";
+            hideTip(tip);
+        } else {
+            tip.dataset.opened = "1";
+            place(trigger, tip);
+        }
+    }, { passive: true });
+
+    // репозиционирование при скролле/ресайзе
+    const rep = () => {
+        const tip = document.querySelector('.tooltip-content[data-opened="1"]');
+        if (!tip) return;
+        // триггер у нас — бывший родитель (мы запомнили)
+        // но проще найти ближайший активный:
+        const trigger = document.querySelector('[data-tooltip-trigger] .tooltip-content[data-opened="1"]')?.closest('[data-tooltip-trigger]');
+        // если тултип уже в body, то trigger выше не найдется, поэтому держим ссылку:
+        const t = tip.__lastTrigger;
+        place(t || trigger, tip);
+    };
+
+    window.addEventListener('scroll', rep, { passive: true });
+    window.addEventListener('resize', rep, { passive: true });
+    window.visualViewport && window.visualViewport.addEventListener('resize', rep, { passive: true });
+    window.visualViewport && window.visualViewport.addEventListener('scroll', rep, { passive: true });
+
+    // маленькая доработка: запомним триггер при place
+    const _place = place;
+    place = function (trigger, tip) {
+        tip.__lastTrigger = trigger;
+        _place(trigger, tip);
+    };
+})();
