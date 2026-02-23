@@ -907,3 +907,18 @@ span.tooltip {
    adaptive.js прячет duration inline style, а в моб-режиме CSS может гасить некоторые колонки.
    На десктопе принудительно возвращаем нормальное отображение.
 --- */
+
+/* --- CorpBonds: ensure full screener columns are visible on desktop
+   adaptive.js прячет duration inline style, а в моб-режиме CSS может гасить некоторые колонки.
+   На десктопе принудительно возвращаем нормальное отображение.
+--- */
+@media (min-width: 769px) {
+    #screenerTable tbody td.duration { display: table-cell !important; }
+    #screenerTable tbody td.mSpread,
+    #screenerTable tbody td.gSpread,
+    #screenerTable tbody td.liquidity { display: table-cell !important; }
+}
+
+@media (max-width: 768px) {
+    #screenerTable tbody td.duration.is-hidden-duration { display: none !important; }
+}

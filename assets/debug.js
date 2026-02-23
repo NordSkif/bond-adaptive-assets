@@ -587,3 +587,378 @@
    - Дополнительно расклеиваем "Срок/Дюрация" и показываем отдельную дюрацию.
    - На мобиле ничего не ломаем: adaptive.js как и раньше делает "карточный" режим.
 --- */
+
+/* --- CorpBonds: RESTORE full screener table on desktop (undo adaptive.js prune/merge)
+   Проблема:
+   - adaptive.js удаляет колонки (deleteCell) и склеивает "Срок/Дюрация" ВСЕГДА, даже на десктопе.
+   - На десктопе в итоге пропадают M-spread / G-spread / Ликвидность, а дюрация скрывается.
+
+   Ограничение:
+   - правим только debug.*
+
+   Решение:
+   - На ширине >768px (и без force mobile) подтягиваем исходную верстку таблицы через fetch текущей страницы,
+     собираем карту значений по data-isin и восстанавливаем недостающие ячейки/заголовки.
+   - Дополнительно расклеиваем "Срок/Дюрация" и показываем отдельную дюрацию.
+   - На мобиле ничего не ломаем: adaptive.js как и раньше делает "карточный" режим.
+--- */
+(() => {
+    const FORCE_MOBILE = /[?#&](mobile=1|mobile)(?:$|&)/i.test(location.search + location.hash);
+    const mqMobile = window.matchMedia ? window.matchMedia('(max-width: 768px)') : null;
+
+    const state = {
+        cache: null,
+        cachePromise: null,
+        raf: 0,
+        mo: null,
+        booted: false,
+    };
+
+    function isMobileNow() {
+        if (FORCE_MOBILE) return true;
+        if (mqMobile) return mqMobile.matches;
+        const vw = window.innerWidth || document.documentElement.clientWidth || 0;
+        return vw <= 768;
+    }
+
+    function throttle() {
+        if (state.raf) cancelAnimationFrame(state.raf);
+        state.raf = requestAnimationFrame(() => {
+            state.raf = 0;
+            run();
+        });
+    }
+
+    function safeText(el) {
+        return (el && el.textContent ? el.textContent : '').trim();
+    }
+
+    function currentUrlNoHash() {
+        return location.origin + location.pathname + location.search;
+    }
+
+    async function ensureCache() {
+        if (state.cache) return state.cache;
+        if (state.cachePromise) return state.cachePromise;
+
+        state.cachePromise = (async () => {
+            const url = currentUrlNoHash();
+            const res = await fetch(url, { credentials: 'same-origin', cache: 'no-store' });
+            if (!res.ok) throw new Error('fetch failed: ' + res.status);
+            const html = await res.text();
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+
+            const srcTable = doc.getElementById('screenerTable');
+            if (!srcTable) return null;
+
+            const headTr = (srcTable.tHead && srcTable.tHead.rows && srcTable.tHead.rows[0])
+                ? srcTable.tHead.rows[0]
+                : srcTable.querySelector('thead tr');
+
+            const th = {
+                mSpread: headTr ? (headTr.querySelector('th.mSpread') && headTr.querySelector('th.mSpread').outerHTML) : null,
+                gSpread: headTr ? (headTr.querySelector('th.gSpread') && headTr.querySelector('th.gSpread').outerHTML) : null,
+                liquidity: headTr ? (headTr.querySelector('th.liquidity') && headTr.querySelector('th.liquidity').outerHTML) : null,
+            };
+
+            const rows = new Map();
+            srcTable.querySelectorAll('tbody tr[data-isin]').forEach((tr) => {
+                const isin = tr.getAttribute('data-isin') || '';
+                if (!isin) return;
+
+                const m = tr.querySelector('td.mSpread') ? tr.querySelector('td.mSpread').outerHTML : null;
+                const g = tr.querySelector('td.gSpread') ? tr.querySelector('td.gSpread').outerHTML : null;
+                const l = tr.querySelector('td.liquidity') ? tr.querySelector('td.liquidity').outerHTML : null;
+                const term = safeText(tr.querySelector('td.term'));
+                const dur = safeText(tr.querySelector('td.duration'));
+
+                rows.set(isin, {
+                    mSpreadHTML: m,
+                    gSpreadHTML: g,
+                    liquidityHTML: l,
+                    termText: term,
+                    durationText: dur,
+                });
+            });
+
+            return { th, rows };
+        })();
+
+        try {
+            state.cache = await state.cachePromise;
+        } catch (e) {
+            state.cache = null;
+        } finally {
+            state.cachePromise = null;
+        }
+
+        return state.cache;
+    }
+
+    function fallbackTh(cls) {
+        const label = {
+            mSpread: 'М-спрэд, %',
+            gSpread: 'G/[Z]-спрэд, %',
+            liquidity: 'Ликвидность',
+        }[cls] || cls;
+
+        return `<th class="${cls}" data-field="${cls}"><div>${label}</div></th>`;
+    }
+
+    function fallbackTd(cls) {
+        const isNum = (cls === 'mSpread' || cls === 'gSpread');
+        return `<td class="${cls}${isNum ? ' xls_num' : ''}"></td>`;
+    }
+
+    function ensureHeader(table, cache) {
+        const headTr = (table.tHead && table.tHead.rows && table.tHead.rows[0])
+            ? table.tHead.rows[0]
+            : table.querySelector('thead tr');
+        if (!headTr) return;
+
+        const thYtm = headTr.querySelector('th.ytm');
+        const thDur = headTr.querySelector('th.duration');
+
+        if (thYtm && !headTr.querySelector('th.mSpread')) {
+            thYtm.insertAdjacentHTML('afterend', (cache && cache.th && cache.th.mSpread) ? cache.th.mSpread : fallbackTh('mSpread'));
+        }
+
+        const thM = headTr.querySelector('th.mSpread');
+        if (thM && !headTr.querySelector('th.gSpread')) {
+            thM.insertAdjacentHTML('afterend', (cache && cache.th && cache.th.gSpread) ? cache.th.gSpread : fallbackTh('gSpread'));
+        }
+
+        if (thDur && !headTr.querySelector('th.liquidity')) {
+            thDur.insertAdjacentHTML('afterend', (cache && cache.th && cache.th.liquidity) ? cache.th.liquidity : fallbackTh('liquidity'));
+        }
+    }
+
+    function unmergeTermDuration(tr, cacheRow) {
+        const termTd = tr.querySelector('td.term');
+        const durTd = tr.querySelector('td.duration');
+        if (!termTd || !durTd) return;
+
+        durTd.style.removeProperty('display');
+
+        if (cacheRow) {
+            if (cacheRow.termText) termTd.textContent = cacheRow.termText;
+            if (cacheRow.durationText) durTd.textContent = cacheRow.durationText;
+            return;
+        }
+
+        const t = safeText(termTd);
+        if (!t) return;
+        if (t.indexOf('/') === -1) return;
+
+        const parts = t.split('/').map(s => s.trim()).filter(Boolean);
+        if (parts.length >= 2) {
+            termTd.textContent = parts[0];
+            if (!safeText(durTd)) durTd.textContent = parts[1];
+        }
+    }
+
+    function ensureRowCells(tr, cacheRow) {
+        const tdYtm = tr.querySelector('td.ytm');
+        const tdTerm = tr.querySelector('td.term');
+        const tdDur = tr.querySelector('td.duration');
+
+        if (!tdYtm || !tdTerm || !tdDur) return;
+
+        if (!tr.querySelector('td.mSpread')) {
+            tdYtm.insertAdjacentHTML('afterend', cacheRow && cacheRow.mSpreadHTML ? cacheRow.mSpreadHTML : fallbackTd('mSpread'));
+        }
+
+        const tdM = tr.querySelector('td.mSpread') || tdYtm;
+        if (!tr.querySelector('td.gSpread')) {
+            tdM.insertAdjacentHTML('afterend', cacheRow && cacheRow.gSpreadHTML ? cacheRow.gSpreadHTML : fallbackTd('gSpread'));
+        }
+
+        if (!tr.querySelector('td.liquidity')) {
+            tdDur.insertAdjacentHTML('afterend', cacheRow && cacheRow.liquidityHTML ? cacheRow.liquidityHTML : '<td class="liquidity"></td>');
+        }
+
+        unmergeTermDuration(tr, cacheRow);
+    }
+
+    async function repairDesktopTable() {
+        if (isMobileNow()) return;
+
+        const table = document.getElementById('screenerTable');
+        if (!table || !table.tBodies || !table.tBodies[0]) return;
+
+        const cache = await ensureCache();
+
+        ensureHeader(table, cache);
+
+        const tbody = table.tBodies[0];
+        Array.from(tbody.rows || []).forEach((tr) => {
+            const isin = tr.getAttribute && tr.getAttribute('data-isin');
+            const cacheRow = (isin && cache && cache.rows) ? cache.rows.get(isin) : null;
+            ensureRowCells(tr, cacheRow);
+        });
+    }
+
+    function attachObservers() {
+        if (state.booted) return;
+        state.booted = true;
+
+        window.addEventListener('resize', throttle, { passive: true });
+        try {
+            if (mqMobile && typeof mqMobile.addEventListener === 'function') mqMobile.addEventListener('change', throttle);
+            else if (mqMobile && typeof mqMobile.addListener === 'function') mqMobile.addListener(throttle);
+        } catch (e) {}
+
+        const moBoot = () => {
+            const table = document.getElementById('screenerTable');
+            const tbody = table && table.tBodies && table.tBodies[0];
+            if (!tbody) return false;
+
+            if (state.mo) state.mo.disconnect();
+            state.mo = new MutationObserver(throttle);
+            state.mo.observe(tbody, { childList: true });
+            return true;
+        };
+
+        let attempts = 0;
+        (function wait() {
+            attempts++;
+            const ok = moBoot();
+            throttle();
+            if (ok) return;
+            if (attempts < 180) requestAnimationFrame(wait);
+        })();
+    }
+
+    async function run() {
+        if (isMobileNow()) return;
+        try {
+            await repairDesktopTable();
+        } catch (e) {}
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', attachObservers, { once: true });
+    } else {
+        attachObservers();
+    }
+})();
+
+/* FIX: mobile cards - keep "Срок / Дюрация" merged, hide duration cell */
+(() => {
+    const FORCE_MOBILE = /[?#&](mobile=1|mobile)(?:$|&)/i.test(location.search + location.hash);
+    const BREAKPOINT = 768;
+    const MQ = (window.matchMedia && window.matchMedia(`(max-width: ${BREAKPOINT}px)`)) || null;
+
+    function isMobileNow() {
+        if (FORCE_MOBILE) return true;
+        const vw = window.innerWidth || document.documentElement.clientWidth || 0;
+        return vw <= BREAKPOINT;
+    }
+
+    function getTbody() {
+        const table = document.getElementById('screenerTable');
+        return (table && table.tBodies && table.tBodies[0]) || null;
+    }
+
+    const txt = (el) => (el && el.textContent ? el.textContent : '').trim();
+
+    function mergeForMobile(tr) {
+        const termTd = tr.querySelector('td.term');
+        const durTd  = tr.querySelector('td.duration');
+        if (!termTd || !durTd) return;
+
+        const termVal = txt(termTd);
+        const durVal  = txt(durTd);
+
+        if (!durVal) {
+            durTd.classList.add('is-hidden-duration');
+            durTd.style.display = 'none';
+            return;
+        }
+
+        const needMerge = !(termVal.includes('/') && termVal.includes(durVal));
+        if (needMerge) termTd.textContent = termVal ? `${termVal} / ${durVal}` : durVal;
+
+        durTd.classList.add('is-hidden-duration');
+        durTd.style.display = 'none';
+
+        tr.dataset.mergedTermDur = '1';
+    }
+
+    function unmergeForDesktop(tr) {
+        const termTd = tr.querySelector('td.term');
+        const durTd  = tr.querySelector('td.duration');
+        if (!termTd || !durTd) return;
+
+        durTd.classList.remove('is-hidden-duration');
+        durTd.style.removeProperty('display');
+
+        const termVal = txt(termTd);
+        const durVal  = txt(durTd);
+
+        if (termVal.includes('/') && !durVal) {
+            const parts = termVal.split('/').map(s => s.trim()).filter(Boolean);
+            if (parts.length >= 2) {
+                termTd.textContent = parts[0];
+                durTd.textContent  = parts[1];
+            }
+        }
+
+        // оставляем флаг, чтобы adaptive.js не прятал дюрацию на десктопе
+        tr.dataset.mergedTermDur = '1';
+    }
+
+    let raf = 0;
+    function schedule() {
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+            raf = 0;
+            apply();
+        });
+    }
+
+    function apply() {
+        const tbody = getTbody();
+        if (!tbody) return false;
+
+        const rows = Array.from(tbody.rows || []);
+        const mobile = isMobileNow();
+
+        if (mobile) rows.forEach(mergeForMobile);
+        else rows.forEach(unmergeForDesktop);
+
+        return true;
+    }
+
+    function boot() {
+        const tbody = getTbody();
+        if (!tbody) return false;
+
+        apply();
+
+        window.addEventListener('resize', schedule, { passive: true });
+        try {
+            if (MQ && typeof MQ.addEventListener === 'function') MQ.addEventListener('change', schedule);
+            else if (MQ && typeof MQ.addListener === 'function') MQ.addListener(schedule);
+        } catch (e) {}
+
+        new MutationObserver(schedule).observe(tbody, { childList: true });
+        return true;
+    }
+
+    if (!boot()) {
+        const root = document.getElementById('screener_results_wrap')
+            || document.getElementById('screener_results')
+            || document.body;
+
+        const mo = new MutationObserver(() => {
+            if (boot()) mo.disconnect();
+        });
+
+        mo.observe(root, { subtree: true, childList: true });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => boot(), { passive: true });
+        }
+    }
+})();
