@@ -922,3 +922,11 @@ span.tooltip {
 @media (max-width: 768px) {
     #screenerTable tbody td.duration.is-hidden-duration { display: none !important; }
 }
+
+@media (min-width: 769px) {
+    #screenerTable tbody td.mSpread,
+    #screenerTable tbody td.gSpread,
+    #screenerTable tbody td.liquidity {
+        display: table-cell !important;
+    }
+}
