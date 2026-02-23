@@ -412,167 +412,164 @@
    но при этом сохраняем "родной" display строк (grid/table-row и т.п.), чтобы не ломать верстку.
 --- */
 (() => {
-  const MQ = window.matchMedia ? window.matchMedia('(max-width: 576px)') : { matches: false };
-  const ART_SEL = 'article.bond-table.issuer-history';
-  const TBODY_SEL = 'tbody[data-tabs-target="events"]';
-  const EXPAND_SEL = 'a[data-expand="events"]';
-  const TAB_BTN_SEL = '.tabs[data-tabs="events"] [data-tab]';
+    const MQ = window.matchMedia ? window.matchMedia('(max-width: 576px)') : { matches: false };
+    const ART_SEL = 'article.bond-table.issuer-history';
+    const TBODY_SEL = 'tbody[data-tabs-target="events"]';
+    const EXPAND_SEL = 'a[data-expand="events"]';
+    const TAB_BTN_SEL = '.tabs[data-tabs="events"] [data-tab]';
 
-  function getActiveTab(article) {
-    const active = article.querySelector('.tabs[data-tabs="events"] [data-tab].active');
-    return (active && active.getAttribute('data-tab')) || 'past';
-  }
-
-  function ensureSaved(tr) {
-    if (tr.dataset.cbDispSaved === '1') return;
-    tr.dataset.cbDispSaved = '1';
-    tr.dataset.cbDispVal = tr.style.getPropertyValue('display') || '';
-    tr.dataset.cbDispPrio = tr.style.getPropertyPriority('display') || '';
-  }
-
-  function setDisplayImportant(tr, value) {
-    ensureSaved(tr);
-    tr.style.setProperty('display', value, 'important');
-  }
-
-  function restoreDisplay(tr) {
-    if (tr.dataset.cbDispSaved !== '1') return;
-    const val = tr.dataset.cbDispVal || '';
-    const pr = tr.dataset.cbDispPrio || '';
-    if (!val) tr.style.removeProperty('display');
-    else tr.style.setProperty('display', val, pr);
-
-    delete tr.dataset.cbDispSaved;
-    delete tr.dataset.cbDispVal;
-    delete tr.dataset.cbDispPrio;
-  }
-
-  function restoreAll(article) {
-    const tbody = article.querySelector(TBODY_SEL);
-    if (!tbody) return;
-    tbody.querySelectorAll('tr[data-cb-disp-saved="1"]').forEach(restoreDisplay);
-  }
-
-  function getNativeRowDisplay(article, activeTab) {
-    const tbody = article.querySelector(TBODY_SEL);
-    if (!tbody) return 'table-row';
-
-    // берем ПЕРВУЮ строку активного таба, которая не скрыта табами.
-    const first = Array.from(tbody.querySelectorAll(`tr[data-on-tab="${activeTab}"]`))
-      .find((tr) => tr.style.getPropertyValue('display') !== 'none');
-
-    if (!first) return 'table-row';
-
-    // временно убираем inline display (наш или чужой), чтобы увидеть реальный computed display
-    const prevVal = first.style.getPropertyValue('display');
-    const prevPr  = first.style.getPropertyPriority('display');
-    first.style.removeProperty('display');
-
-    const disp = getComputedStyle(first).display;
-
-    // восстанавливаем
-    if (prevVal) first.style.setProperty('display', prevVal, prevPr);
-
-    if (!disp || disp === 'none') return 'table-row';
-    return disp;
-  }
-
-  function isExpanded(expand) {
-    // у них это класс + иногда aria-expanded
-    return expand.classList.contains('expanded') || expand.getAttribute('aria-expanded') === 'true';
-  }
-
-  function apply(article) {
-    if (!article) return;
-
-    const tbody = article.querySelector(TBODY_SEL);
-    const expand = article.querySelector(EXPAND_SEL);
-    if (!tbody || !expand) return;
-
-    // На ширине >576px откатываем наши inline-override и отдаем управление штатной логике/верстке
-    if (!MQ.matches) {
-      restoreAll(article);
-      return;
+    function getActiveTab(article) {
+        const active = article.querySelector('.tabs[data-tabs="events"] [data-tab].active');
+        return (active && active.getAttribute('data-tab')) || 'past';
     }
 
-    // На мобиле хотим стартово показывать свернутый список (даже если сервер/скрипт оставили expanded)
-    if (expand.dataset.cbInitCollapsed !== '1') {
-      expand.dataset.cbInitCollapsed = '1';
-      expand.classList.remove('expanded');
-      expand.setAttribute('aria-expanded', 'false');
-      var bt = expand.querySelector('.button-text');
-      if (bt && bt.dataset && bt.dataset.text1) bt.textContent = bt.dataset.text1;
+    function ensureSaved(tr) {
+        if (tr.dataset.cbDispSaved === '1') return;
+        tr.dataset.cbDispSaved = '1';
+        tr.dataset.cbDispVal = tr.style.getPropertyValue('display') || '';
+        tr.dataset.cbDispPrio = tr.style.getPropertyPriority('display') || '';
     }
 
-
-    const startCount = 3; // mobile: show 3 items before expand
-    const activeTab = getActiveTab(article);
-
-    const rowsAll = Array.from(tbody.querySelectorAll('tr[data-on-tab]'));
-    const rows = rowsAll.filter((tr) => tr.getAttribute('data-on-tab') === activeTab);
-
-    // если строк мало - просто покажем все и спрячем кнопку (если она есть)
-    const expanded = isExpanded(expand);
-    const nativeDisp = getNativeRowDisplay(article, activeTab);
-
-    rows.forEach((tr, idx) => {
-      if (expanded) {
-        setDisplayImportant(tr, nativeDisp);
-        return;
-      }
-
-      if (idx < startCount) setDisplayImportant(tr, nativeDisp);
-      else setDisplayImportant(tr, 'none');
-    });
-
-    // неактивные табы не трогаем (но если мы их трогали раньше — восстановим)
-    rowsAll.forEach((tr) => {
-      const tab = tr.getAttribute('data-on-tab') || '';
-      if (tab !== activeTab) restoreDisplay(tr);
-    });
-  }
-
-  function scanAndApply() {
-    document.querySelectorAll(ART_SEL).forEach(apply);
-  }
-
-  // клики по expand и табам — применяем после штатной логики (1-2 RAF, чтобы дать отработать табам)
-  document.addEventListener('click', (e) => {
-    const expand = e.target.closest?.(EXPAND_SEL);
-    if (expand) {
-      const art = expand.closest?.(ART_SEL);
-      if (art) requestAnimationFrame(() => requestAnimationFrame(() => apply(art)));
-      return;
+    function setDisplayImportant(tr, value) {
+        ensureSaved(tr);
+        tr.style.setProperty('display', value, 'important');
     }
 
-    const tabBtn = e.target.closest?.(TAB_BTN_SEL);
-    if (tabBtn) {
-      const art = tabBtn.closest?.(ART_SEL);
-      if (art) requestAnimationFrame(() => requestAnimationFrame(() => apply(art)));
+    function restoreDisplay(tr) {
+        if (tr.dataset.cbDispSaved !== '1') return;
+        const val = tr.dataset.cbDispVal || '';
+        const pr = tr.dataset.cbDispPrio || '';
+        if (!val) tr.style.removeProperty('display');
+        else tr.style.setProperty('display', val, pr);
+
+        delete tr.dataset.cbDispSaved;
+        delete tr.dataset.cbDispVal;
+        delete tr.dataset.cbDispPrio;
     }
-  }, { passive: true });
 
-  // ресайз/поворот — пересчитать/откатить
-  window.addEventListener('resize', scanAndApply, { passive: true });
-  window.addEventListener('orientationchange', scanAndApply, { passive: true });
+    function restoreAll(article) {
+        const tbody = article.querySelector(TBODY_SEL);
+        if (!tbody) return;
+        tbody.querySelectorAll('tr[data-cb-disp-saved="1"]').forEach(restoreDisplay);
+    }
 
-  // matchMedia change
-  try {
-    if (MQ && typeof MQ.addEventListener === 'function') MQ.addEventListener('change', scanAndApply);
-    else if (MQ && typeof MQ.addListener === 'function') MQ.addListener(scanAndApply);
-  } catch (e) {}
+    function getNativeRowDisplay(article, activeTab) {
+        const tbody = article.querySelector(TBODY_SEL);
+        if (!tbody) return 'table-row';
 
-  // старт: после DOMContentLoaded и еще раз после полной отрисовки (часто табы инициализируются позже)
-  const boot = () => {
-    scanAndApply();
-    setTimeout(scanAndApply, 0);
-    setTimeout(scanAndApply, 50);
-  };
+        // берем ПЕРВУЮ строку активного таба, которая не скрыта табами.
+        const first = Array.from(tbody.querySelectorAll(`tr[data-on-tab="${activeTab}"]`))
+            .find((tr) => tr.style.getPropertyValue('display') !== 'none');
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot, { passive: true });
-  } else {
-    boot();
-  }
+        if (!first) return 'table-row';
+
+        // временно убираем inline display (наш или чужой), чтобы увидеть реальный computed display
+        const prevVal = first.style.getPropertyValue('display');
+        const prevPr  = first.style.getPropertyPriority('display');
+        first.style.removeProperty('display');
+
+        const disp = getComputedStyle(first).display;
+
+        // восстанавливаем
+        if (prevVal) first.style.setProperty('display', prevVal, prevPr);
+
+        if (!disp || disp === 'none') return 'table-row';
+        return disp;
+    }
+
+    function isExpanded(expand) {
+        // у них это класс + иногда aria-expanded
+        return expand.classList.contains('expanded') || expand.getAttribute('aria-expanded') === 'true';
+    }
+
+    function apply(article) {
+        if (!article) return;
+
+        const tbody = article.querySelector(TBODY_SEL);
+        const expand = article.querySelector(EXPAND_SEL);
+        if (!tbody || !expand) return;
+
+        // На ширине >576px откатываем наши inline-override и отдаем управление штатной логике/верстке
+        if (!MQ.matches) {
+            restoreAll(article);
+            return;
+        }
+
+        // На мобиле хотим стартово показывать свернутый список (даже если сервер/скрипт оставили expanded)
+        if (expand.dataset.cbInitCollapsed !== '1') {
+            expand.dataset.cbInitCollapsed = '1';
+            expand.classList.remove('expanded');
+            expand.setAttribute('aria-expanded', 'false');
+            var bt = expand.querySelector('.button-text');
+            if (bt && bt.dataset && bt.dataset.text1) bt.textContent = bt.dataset.text1;
+        }
+
+
+        const startCount = 3; // mobile: show 3 items before expand
+        const activeTab = getActiveTab(article);
+
+        const rowsAll = Array.from(tbody.querySelectorAll('tr[data-on-tab]'));
+        const rows = rowsAll.filter((tr) => tr.getAttribute('data-on-tab') === activeTab);
+
+        // если строк мало - просто покажем все и спрячем кнопку (если она есть)
+        const expanded = isExpanded(expand);
+        const nativeDisp = getNativeRowDisplay(article, activeTab);
+
+        rows.forEach((tr, idx) => {
+            if (expanded) {
+                setDisplayImportant(tr, nativeDisp);
+                return;
+            }
+
+            if (idx < startCount) setDisplayImportant(tr, nativeDisp);
+            else setDisplayImportant(tr, 'none');
+        });
+
+        // неактивные табы не трогаем (но если мы их трогали раньше — восстановим)
+        rowsAll.forEach((tr) => {
+            const tab = tr.getAttribute('data-on-tab') || '';
+            if (tab !== activeTab) restoreDisplay(tr);
+        });
+    }
+
+    function scanAndApply() {
+        document.querySelectorAll(ART_SEL).forEach(apply);
+    }
+
+    // клики по expand и табам — применяем после штатной логики (1-2 RAF, чтобы дать отработать табам)
+    document.addEventListener('click', (e) => {
+        const expand = e.target.closest?.(EXPAND_SEL);
+        if (expand) {
+            const art = expand.closest?.(ART_SEL);
+            if (art) requestAnimationFrame(() => requestAnimationFrame(() => apply(art)));
+            return;
+        }
+
+        const tabBtn = e.target.closest?.(TAB_BTN_SEL);
+        if (tabBtn) {
+            const art = tabBtn.closest?.(ART_SEL);
+            if (art) requestAnimationFrame(() => requestAnimationFrame(() => apply(art)));
+        }
+    }, { passive: true });
+
+    // ресайз/поворот — пересчитать/откатить
+// matchMedia change
+    try {
+        if (MQ && typeof MQ.addEventListener === 'function') MQ.addEventListener('change', scanAndApply);
+        else if (MQ && typeof MQ.addListener === 'function') MQ.addListener(scanAndApply);
+    } catch (e) {}
+
+    // старт: после DOMContentLoaded и еще раз после полной отрисовки (часто табы инициализируются позже)
+    const boot = () => {
+        scanAndApply();
+        setTimeout(scanAndApply, 0);
+        setTimeout(scanAndApply, 50);
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot, { passive: true });
+    } else {
+        boot();
+    }
 })();
 
