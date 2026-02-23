@@ -899,17 +899,3 @@ body.site #root > main.content.with-tooltips > section.bond.with-tooltips span.t
     right: 0;
 }
 
-@media (max-width: 768px) {
-    body.site #root main.content.with-tooltips
-    article.screener.start-content:not(.bond):not(.issuer-tables)
-    #screenerTable tbody tr.is-hidden-by-limit {
-        display: grid !important;
-    }
-}
-@media (min-width: 769px) {
-    body.site #root main.content.with-tooltips
-    article.screener.start-content:not(.bond):not(.issuer-tables)
-    #screenerTable tbody tr.is-hidden-by-limit {
-        display: table-row !important;
-    }
-}
