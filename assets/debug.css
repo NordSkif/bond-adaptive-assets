@@ -891,6 +891,10 @@ body.site #root > main.content.with-tooltips > section.bond.with-tooltips span.t
     max-width: calc(100vw - 24px);
 }
 
+span.tooltip {
+    font-size: 8px !important;
+}
+
 @media (max-width: 480px){
     .share-buttons .ya-share2{ transform: none !important; }
 }
