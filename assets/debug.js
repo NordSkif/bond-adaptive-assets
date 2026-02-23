@@ -94,6 +94,13 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         waitForElement('#screenerTable', function (table) {
+            // Важно: на странице "Скринер" мобильная пагинация (adaptive.js) сама управляет видимостью строк.
+            // Лимитер на 20 строк конфликтует с пагинацией и делает страницы после 20-й строки пустыми.
+            var art = table.closest && table.closest('article');
+            if (art && art.matches && art.matches('article.screener.start-content:not(.bond):not(.issuer-tables)')) {
+                return;
+            }
+
             initTableLimiter(table, 20);
         }, 8000);
     });
