@@ -379,7 +379,17 @@
             return;
         }
 
-        const startCount = parseInt(expand.dataset.startVisibleCount || '10', 10) || 10;
+        // На мобиле хотим стартово показывать свернутый список (даже если сервер/скрипт оставили expanded)
+        if (expand.dataset.cbInitCollapsed !== '1') {
+            expand.dataset.cbInitCollapsed = '1';
+            expand.classList.remove('expanded');
+            expand.setAttribute('aria-expanded', 'false');
+            var bt = expand.querySelector('.button-text');
+            if (bt && bt.dataset && bt.dataset.text1) bt.textContent = bt.dataset.text1;
+        }
+
+
+        const startCount = 3; // mobile: show 3 items before expand
         const activeTab = getActiveTab(article);
 
         const rowsAll = Array.from(tbody.querySelectorAll('tr[data-on-tab]'));
