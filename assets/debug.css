@@ -930,3 +930,10 @@ span.tooltip {
         display: table-cell !important;
     }
 }
+
+
+@media (max-width: 768px) {
+    .bond-payments table thead tr {
+        grid-template-columns: minmax(120px, 1.25fr) minmax(70px, .9fr) minmax(65px, .8fr) minmax(75px, 1.15fr) !important;
+    }
+}
